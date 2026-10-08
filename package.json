@@ -1,0 +1,13 @@
+{
+  "name": "hollow-hill-halloween",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Scroll-driven Halloween party site built with GSAP + ScrollTrigger",
+  "scripts": {
+    "icons": "node scripts/build-icons.mjs",
+    "serve": "python3 -m http.server 5173 --bind 127.0.0.1"
+  },
+  "devDependencies": {
+    "@iconify-json/game-icons": "^1.2.4"
+  }
+}
