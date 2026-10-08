@@ -190,20 +190,31 @@
   }
 
   const TIERS = {
-    mortal: {
-      name: "Early Mortal",
-      price: 1199,
+    male_stag: {
+      name: "Male Stag",
+      price: 1999,
       type: "single",
       min: 1,
       max: 20,
-      badge: "PHASE II · FILLING FAST",
+      badge: "STAG ENTRY",
       rateLabel: "RATE PER PERSON",
       unitSingular: "SOUL",
       unitPlural: "SOULS",
     },
-    coven: {
-      name: "Coven Duo",
-      price: 2199,
+    female_stag: {
+      name: "Female Stag",
+      price: 1799,
+      type: "single",
+      min: 1,
+      max: 20,
+      badge: "STAG ENTRY",
+      rateLabel: "RATE PER PERSON",
+      unitSingular: "SOUL",
+      unitPlural: "SOULS",
+    },
+    couple: {
+      name: "Couple",
+      price: 3599,
       type: "couple",
       min: 1,
       max: 10,
@@ -212,32 +223,10 @@
       unitSingular: "COUPLE (2 SOULS)",
       unitPlural: "COUPLES",
     },
-    vip: {
-      name: "Blood VIP",
-      price: 3499,
-      type: "single",
-      min: 1,
-      max: 12,
-      badge: "VIP EXCLUSIVE · 24 SLOTS",
-      rateLabel: "RATE PER VIP SOUL",
-      unitSingular: "VIP SOUL",
-      unitPlural: "VIP SOULS",
-    },
-    squad: {
-      name: "Spooky Squad",
-      price: 999,
-      type: "group",
-      min: 4,
-      max: 30,
-      badge: "SAVE ₹800+ · GROUP RATE",
-      rateLabel: "RATE PER SQUAD SOUL",
-      unitSingular: "SOUL (SQUAD RATE)",
-      unitPlural: "SOULS (SQUAD RATE)",
-    },
   };
 
   const bookingState = {
-    tierId: "coven",
+    tierId: "couple",
     qty: 1,
   };
 
@@ -397,63 +386,33 @@
 
     renderCalc();
 
-    if (form) {
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const name = (nameInput?.value || "").trim();
-        const phone = (phoneInput?.value || "").trim();
-        const email = (emailInput?.value || "").trim();
-        const insta = (instaInput?.value || "").trim();
-        const costume = (costumeInput?.value || "").trim();
 
-        if (!name || !phone) {
-          if (formError) {
-            formError.hidden = false;
-            formError.textContent = "Please provide both your name and WhatsApp number to issue your pass.";
-          }
-          if (!name) nameInput?.focus();
-          else phoneInput?.focus();
-          return;
-        }
-
-        if (formError) formError.hidden = true;
-
-        const tier = TIERS[bookingState.tierId];
-        const souls = tier.type === "couple" ? bookingState.qty * 2 : bookingState.qty;
-        const total = tier.price * bookingState.qty;
-        const passNo = "HH-26-" + Math.floor(1000 + Math.random() * 9000);
-
-        const data = {
-          name,
-          phone,
-          email,
-          insta,
-          costume,
-          tier: tier.name,
-          tierId: bookingState.tierId,
-          qty: bookingState.qty,
-          souls: souls + (souls === 1 ? " Soul" : " Souls"),
-          amount: formatRupees(total),
-          no: passNo,
-          date: "Sat 31 Oct 2026 · 8:00 pm",
-        };
-
-        saveRsvp(data);
-        showTicket(data, true);
-      });
-    }
 
     const waBtn = $("#whatsappPayBtn");
     if (waBtn) {
       waBtn.addEventListener("click", () => {
-        const name = (nameInput?.value || "Guest").trim();
+        const name = (nameInput?.value || "").trim();
         const phone = (phoneInput?.value || "").trim();
+        const insta = (instaInput?.value || "").trim();
+
+        if (!name || !phone || !insta) {
+          if (formError) {
+            formError.hidden = false;
+            formError.textContent = "Please provide your Name, WhatsApp number, and Instagram Handle.";
+          }
+          if (!name) nameInput?.focus();
+          else if (!phone) phoneInput?.focus();
+          else instaInput?.focus();
+          return;
+        }
+        if (formError) formError.hidden = true;
+
         const tier = TIERS[bookingState.tierId];
         const souls = tier.type === "couple" ? bookingState.qty * 2 : bookingState.qty;
         const total = formatRupees(tier.price * bookingState.qty);
 
         const msg = encodeURIComponent(
-          `Hi Hollow Hill Manor! 🎃\nI want to book passes for Halloween 2026.\n✦ Pass: ${tier.name}\n✦ Attendees: ${souls} Souls\n✦ Total Amount: ${total}\n✦ Name: ${name}\n✦ Phone: ${phone}\nPlease share UPI / payment instructions to confirm!`
+          `Hi Hollow Hill Manor! 🎃\nI want to book passes for Halloween 2026.\n✦ Pass: ${tier.name}\n✦ Attendees: ${souls} Souls\n✦ Total Amount: ${total}\n✦ Name: ${name}\n✦ Phone: ${phone}\n✦ Insta: ${insta}\nPlease share UPI / payment instructions to confirm!`
         );
         window.open(`https://wa.me/919999999999?text=${msg}`, "_blank");
       });
@@ -1187,9 +1146,9 @@
       document.fonts.load('1em "Anton"'),
       document.fonts.load('600 1em "Cormorant Garamond"'),
       document.fonts.load('1em "Inter"'),
-    ]).catch(() => {});
+    ]).catch(() => { });
     const heroImg = $(".hero-photo img");
-    const heroPhoto = (heroImg.decode ? heroImg.decode() : Promise.resolve()).catch(() => {});
+    const heroPhoto = (heroImg.decode ? heroImg.decode() : Promise.resolve()).catch(() => { });
     const timeout = new Promise((r) => setTimeout(r, 6000));
 
     Promise.all([counting, Promise.race([Promise.all([fonts, heroPhoto]), timeout])]).then(() => {
