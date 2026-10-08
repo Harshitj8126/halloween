@@ -2,16 +2,17 @@
 <html lang="en" class="is-locked">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hollow Hill — Halloween Bash 2026</title>
-  <meta name="description" content="You are summoned to Hollow Hill Manor for a night of costumes, cursed cocktails and dancing with the dearly departed. Saturday 31 October 2026." />
-  <meta name="theme-color" content="#0d0a14" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HOLLOW HILL — Halloween 2026 · Ashgrove Manor</title>
+  <meta name="description" content="You are summoned to Hollow Hill Manor for an immersive Halloween festival. Saturday 31 October 2026. Ashgrove Manor." />
+  <meta name="theme-color" content="#050505" />
+  <meta name="color-scheme" content="dark" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>" />
 
   <link rel="preconnect" href="https://images.unsplash.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Creepster&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" imagesrcset="https://images.unsplash.com/photo-1659633882885-66a90a61bbb6?auto=format&fit=crop&w=960&q=75 960w, https://images.unsplash.com/photo-1659633882885-66a90a61bbb6?auto=format&fit=crop&w=1600&q=75 1600w, https://images.unsplash.com/photo-1659633882885-66a90a61bbb6?auto=format&fit=crop&w=2400&q=75 2400w" imagesizes="100vw" fetchpriority="high" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -54,16 +55,17 @@
 
   <!-- ============ FIXED UI ============ -->
   <header class="nav">
-    <a class="nav-logo" href="#top" data-scroll>Hollow&nbsp;Hill</a>
+    <a class="nav-logo" href="#top" data-scroll>HOLLOW&nbsp;HILL</a>
     <nav aria-label="Main">
       <ul class="nav-links">
         <li><a href="#invite" data-scroll>Invite</a></li>
         <li><a href="#details" data-scroll>Details</a></li>
-        <li><a href="#program" data-scroll>Program</a></li>
+        <li><a href="#program" data-scroll>Schedule</a></li>
         <li><a href="#rooms" data-scroll>Rooms</a></li>
+        <li><a href="#passes" data-scroll>Passes</a></li>
       </ul>
     </nav>
-    <a class="btn btn--small" href="#rsvp" data-scroll>RSVP</a>
+    <a class="btn btn--small nav-cta" href="#passes" data-scroll>GET PASS</a>
   </header>
 
   <div class="candle" aria-hidden="true" title="How much of the night is left">
@@ -355,101 +357,331 @@
       <h2 class="whisper">Don't look behind you.</h2>
     </section>
 
-    <!-- ============ 7. RSVP: quiz + front-end-only ticket ============ -->
-    <section class="rsvp" id="rsvp">
+    <!-- ============ 7. PASSES & ADMISSION: FERAL-INSPIRED TICKETING ENGINE ============ -->
+    <section class="rsvp" id="passes" aria-label="Passes and Admission">
+      <a id="rsvp" style="position:absolute;top:0;left:0;"></a>
       <div class="section-bg rsvp-bg"><img src="https://images.unsplash.com/photo-1640869444601-e791c41bae6b?auto=format&fit=crop&w=2000&q=75" srcset="https://images.unsplash.com/photo-1640869444601-e791c41bae6b?auto=format&fit=crop&w=960&q=75 960w, https://images.unsplash.com/photo-1640869444601-e791c41bae6b?auto=format&fit=crop&w=1600&q=75 1600w, https://images.unsplash.com/photo-1640869444601-e791c41bae6b?auto=format&fit=crop&w=2400&q=75 2400w" sizes="100vw" alt="" loading="lazy" /></div>
       <div class="section-shade"></div>
+      
       <header class="section-head">
-        <p class="kicker">Chapter V</p>
-        <h2 class="section-title">Claim Your Soul's Seat</h2>
-        <p class="lede">Take the quiz, sign in (fake) blood, and get your ticket to the other side.</p>
+        <p class="kicker">Chapter V · Official Admission</p>
+        <h2 class="section-title">Passes &amp; Admission</h2>
+        <p class="lede">All passes include full estate access, 3 audio-visual stages, cursed potion rations, and survival until dawn. Strictly 18+. Costumes mandatory.</p>
       </header>
 
-      <div class="rsvp-grid">
-        <div class="panel quiz">
-          <p class="panel-kicker">Step 1 · Which ghoul are you?</p>
-          <div class="quiz-steps">
-            <fieldset class="quiz-q is-active">
-              <legend>Your ideal Friday night?</legend>
-              <button type="button" data-ghoul="vampire">Brooding in a candlelit castle</button>
-              <button type="button" data-ghoul="witch">Brewing something questionable</button>
-              <button type="button" data-ghoul="ghost">Floating around, eavesdropping</button>
-              <button type="button" data-ghoul="werewolf">Running wild under the full moon</button>
-            </fieldset>
-            <fieldset class="quiz-q">
-              <legend>Pick a party snack.</legend>
-              <button type="button" data-ghoul="vampire">Blood-orange slices</button>
-              <button type="button" data-ghoul="witch">Eye-of-newt crisps</button>
-              <button type="button" data-ghoul="ghost">Nothing. I'm see-through.</button>
-              <button type="button" data-ghoul="werewolf">A very rare steak</button>
-            </fieldset>
-            <fieldset class="quiz-q">
-              <legend>Your signature dance move?</legend>
-              <button type="button" data-ghoul="vampire">The slow, sinister waltz</button>
-              <button type="button" data-ghoul="witch">Stirring the cauldron</button>
-              <button type="button" data-ghoul="ghost">The vanishing act</button>
-              <button type="button" data-ghoul="werewolf">Howl and headbang</button>
-            </fieldset>
-            <div class="quiz-result" hidden>
-              <svg class="quiz-result-icon icon" aria-hidden="true"><use href="#i-ghost" /></svg>
-              <p class="quiz-result-label">You are a…</p>
-              <p class="quiz-result-name"></p>
-              <p class="quiz-result-desc"></p>
-              <button type="button" class="link-btn quiz-retake">Retake the quiz</button>
-            </div>
-          </div>
-          <div class="quiz-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-        </div>
-
-        <form class="panel rsvp-form" novalidate>
-          <p class="panel-kicker">Step 2 · Sign the guest book</p>
-          <label class="field">
-            <span>Your name (or your costume's)</span>
-            <input type="text" name="name" required maxlength="40" placeholder="Count Spatula" autocomplete="off" />
-          </label>
-          <label class="field">
-            <span>How many souls?</span>
-            <select name="guests">
-              <option value="1">Just me</option>
-              <option value="2">Me + 1 (alive)</option>
-              <option value="3">Me + 2</option>
-              <option value="4">Me + 3 (a coven)</option>
-            </select>
-          </label>
-          <fieldset class="tiers">
-            <legend>Choose your fate</legend>
-            <label class="tier">
-              <input type="radio" name="tier" value="Mortal" checked />
-              <span class="tier-card"><strong>Mortal</strong><em>Free entry, full fright</em></span>
-            </label>
-            <label class="tier">
-              <input type="radio" name="tier" value="Phantom VIP" />
-              <span class="tier-card"><strong>Phantom VIP</strong><em>Bring a dish, get a séance seat</em></span>
-            </label>
-          </fieldset>
-          <button class="btn btn--blood" type="submit">Sign in blood</button>
-          <p class="form-note">Front-end demo: your RSVP is saved only in this browser. Nothing is sent anywhere.</p>
-          <p class="form-error" role="alert" hidden>Even ghosts have names. Please enter one.</p>
-        </form>
+      <!-- Phase Banner -->
+      <div class="phase-banner">
+        <div class="phase-pulse"><span class="dot"></span> PHASE II ADMISSION LIVE</div>
+        <div class="phase-sep">✦</div>
+        <div class="phase-stat">84% SLOTS RESERVED</div>
+        <div class="phase-sep">✦</div>
+        <div class="phase-note">STRICT INGRESS: NO COSTUME, NO ENTRY</div>
       </div>
 
-      <div class="ticket-wrap" hidden>
-        <div class="ticket" role="status">
-          <div class="ticket-main">
-            <p class="ticket-kicker">Admit one soul to</p>
-            <p class="ticket-title">Hollow Hill</p>
-            <dl class="ticket-meta">
-              <div><dt>Guest</dt><dd class="t-name"></dd></div>
-              <div><dt>Souls</dt><dd class="t-guests"></dd></div>
-              <div><dt>Fate</dt><dd class="t-tier"></dd></div>
-              <div><dt>Ghoul</dt><dd class="t-ghoul"></dd></div>
-            </dl>
-            <p class="ticket-date">Sat 31 Oct 2026 · 8:00 pm · 13 Raven Lane</p>
+      <!-- Passes Cards Grid -->
+      <div class="passes-grid">
+        <!-- TIER 1 -->
+        <div class="pass-card" data-tier-id="mortal" data-name="Early Mortal" data-price="1199" data-type="single" data-min="1">
+          <div class="pass-card-head">
+            <span class="pass-tag">Phase II · Filling Fast</span>
+            <h3 class="pass-title">Early Mortal</h3>
+            <p class="pass-subtitle">Solo Soul · Stag Admission</p>
+            <div class="pass-price-wrap">
+              <span class="pass-curr">₹</span><span class="pass-val">1,199</span>
+              <span class="pass-per">/ person</span>
+            </div>
           </div>
-          <div class="ticket-stub"><span class="ticket-no"></span></div>
-          <div class="ticket-stamp">Admitted</div>
+          <ul class="pass-perks">
+            <li><span class="perk-icon">✦</span> Full Access to 3 Underground Stages &amp; Ballroom</li>
+            <li><span class="perk-icon">✦</span> 1 Welcome Smoking Elixir at the Manor Gates</li>
+            <li><span class="perk-icon">✦</span> Walkthrough access to The Crypt Maze</li>
+            <li><span class="perk-icon">✦</span> Costume Parade Runway Contest Entry</li>
+          </ul>
+          <button type="button" class="btn pass-select-btn" data-select-tier="mortal">Select Mortal Pass</button>
         </div>
-        <button type="button" class="link-btn ticket-reset">Cancel my RSVP</button>
+
+        <!-- TIER 2 -->
+        <div class="pass-card is-popular is-active" data-tier-id="coven" data-name="Coven Duo" data-price="2199" data-type="couple" data-min="2">
+          <div class="pass-badge">Most Popular</div>
+          <div class="pass-card-head">
+            <span class="pass-tag">Couple Entry · 2 Souls</span>
+            <h3 class="pass-title">Coven Duo</h3>
+            <p class="pass-subtitle">1 Couple = 2 People · Fast Gate</p>
+            <div class="pass-price-wrap">
+              <span class="pass-curr">₹</span><span class="pass-val">2,199</span>
+              <span class="pass-per">/ couple</span>
+            </div>
+          </div>
+          <ul class="pass-perks">
+            <li><span class="perk-icon">✦</span> Priority Express Couple Gate Access (No Lines)</li>
+            <li><span class="perk-icon">✦</span> 2 Signature Smoking Cauldron Potions</li>
+            <li><span class="perk-icon">✦</span> Portrait Gallery Studio Polaroid Shoot</li>
+            <li><span class="perk-icon">✦</span> Secret After-Hours Crypt Dancefloor (1am – late)</li>
+          </ul>
+          <button type="button" class="btn pass-select-btn" data-select-tier="coven">Select Coven Pass</button>
+        </div>
+
+        <!-- TIER 3 -->
+        <div class="pass-card is-vip" data-tier-id="vip" data-name="Blood VIP" data-price="3499" data-type="single" data-min="1">
+          <div class="pass-badge pass-badge--vip">VIP Exclusive</div>
+          <div class="pass-card-head">
+            <span class="pass-tag">All-Access Phantom · Limited 24</span>
+            <h3 class="pass-title">Blood VIP</h3>
+            <p class="pass-subtitle">Backstage Deck &amp; Open Potion Bar</p>
+            <div class="pass-price-wrap">
+              <span class="pass-curr">₹</span><span class="pass-val">3,499</span>
+              <span class="pass-per">/ person</span>
+            </div>
+          </div>
+          <ul class="pass-perks">
+            <li><span class="perk-icon">✦</span> VIP Fast-Track Red Carpet Check-In</li>
+            <li><span class="perk-icon">✦</span> Unlimited Potion Lab Cocktails &amp; Blood Punch</li>
+            <li><span class="perk-icon">✦</span> Reserved Madame Morte Séance Front-Row</li>
+            <li><span class="perk-icon">✦</span> Backstage DJ Deck &amp; Private Bar Lounge</li>
+            <li><span class="perk-icon">✦</span> Hollow Hill Velvet Skull Lanyard &amp; Wax Pin</li>
+          </ul>
+          <button type="button" class="btn pass-select-btn" data-select-tier="vip">Select Blood VIP</button>
+        </div>
+
+        <!-- TIER 4 -->
+        <div class="pass-card is-group" data-tier-id="squad" data-name="Spooky Squad" data-price="999" data-type="group" data-min="4">
+          <div class="pass-badge pass-badge--group">Save ₹800+</div>
+          <div class="pass-card-head">
+            <span class="pass-tag">Group Rate · Min 4 Souls</span>
+            <h3 class="pass-title">Spooky Squad</h3>
+            <p class="pass-subtitle">Save ₹200 Each · Coven Crew Rate</p>
+            <div class="pass-price-wrap">
+              <span class="pass-curr">₹</span><span class="pass-val">999</span>
+              <span class="pass-per">/ person</span>
+            </div>
+          </div>
+          <ul class="pass-perks">
+            <li><span class="perk-icon">✦</span> Flat ₹999 per soul (Minimum 4 Souls)</li>
+            <li><span class="perk-icon">✦</span> Reserved High-Table in Ballroom of the Damned</li>
+            <li><span class="perk-icon">✦</span> 1 Complimentary Flaming Cauldron Pitcher</li>
+            <li><span class="perk-icon">✦</span> Free Coat &amp; Cloak Check for the Entire Crew</li>
+          </ul>
+          <button type="button" class="btn pass-select-btn" data-select-tier="squad">Select Squad Pass</button>
+        </div>
+      </div>
+
+      <!-- Interactive Calculator & Booking Matrix -->
+      <div class="booking-matrix" id="bookingMatrix">
+        <!-- LEFT: Pass Calculator Engine -->
+        <div class="panel calc-panel">
+          <p class="panel-kicker">STEP 1 · SELECT SOULS &amp; QUANTITY</p>
+          
+          <div class="calc-selected-header">
+            <div>
+              <span class="calc-tier-type">SELECTED PASS TIER</span>
+              <h3 class="calc-tier-name" id="calcTierName">Coven Duo</h3>
+            </div>
+            <span class="calc-tier-badge" id="calcTierBadge">POPULAR CHOICE</span>
+          </div>
+
+          <!-- Quantity Stepper -->
+          <div class="calc-counter-wrap">
+            <p class="calc-label">ATTENDEE COUNT</p>
+            <div class="calc-counter">
+              <button type="button" class="calc-btn calc-dec" id="calcDec" aria-label="Decrease quantity">−</button>
+              <span class="calc-qty" id="calcQty" aria-live="polite">1</span>
+              <button type="button" class="calc-btn calc-inc" id="calcInc" aria-label="Increase quantity">+</button>
+              <span class="calc-unit" id="calcUnit">COUPLE (2 SOULS)</span>
+            </div>
+          </div>
+
+          <!-- Breakdown & Group Discount Alerts -->
+          <div class="calc-breakdown">
+            <div class="breakdown-row">
+              <span class="eyebrow" id="rateTypeLabel">RATE PER COUPLE</span>
+              <span class="breakdown-price" id="calcRateEach">₹2,199</span>
+            </div>
+            
+            <div class="discount-alert" id="calcDiscountAlert" hidden>
+              <span class="alert-icon">✦</span>
+              <span class="alert-text" id="calcDiscountText">GROUP DISCOUNT UNLOCKED — YOU SAVE ₹800!</span>
+            </div>
+
+            <div class="breakdown-row breakdown-total">
+              <div>
+                <span class="eyebrow">TOTAL AMOUNT</span>
+                <span class="breakdown-sub" id="calcBreakdownFormula">1 couple × ₹2,199</span>
+              </div>
+              <div class="total-amount" id="calcTotalAmount">₹2,199</div>
+            </div>
+          </div>
+
+          <!-- Bonus: Ghoul Persona Quiz Trigger -->
+          <div class="quiz-trigger-box">
+            <p class="quiz-trigger-tag">BONUS GUEST EXPERIENCE</p>
+            <p class="quiz-trigger-text">Unsure what costume suits your dark aura? Discover your Ghoul archetype before booking.</p>
+            <button type="button" class="btn btn--ghost btn--small" id="openQuizBtn">TAKE GHOUL QUIZ ➔</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Registration & Booking Details -->
+        <div class="panel form-panel">
+          <p class="panel-kicker">STEP 2 · MORTAL REGISTRATION &amp; ENTRY</p>
+          
+          <form class="rsvp-form" id="bookingForm" novalidate>
+            <label class="field">
+              <span>Your Name (or Costume Alter-Ego) *</span>
+              <input type="text" name="name" id="guestName" required maxlength="40" placeholder="e.g. Vladislav / Kabir" autocomplete="off" />
+            </label>
+
+            <div class="form-row">
+              <label class="field">
+                <span>WhatsApp Number (+91) *</span>
+                <input type="tel" name="phone" id="guestPhone" required placeholder="9876543210" autocomplete="tel" />
+              </label>
+              <label class="field">
+                <span>Email Address *</span>
+                <input type="email" name="email" id="guestEmail" required placeholder="mortal@ashes.com" autocomplete="email" />
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label class="field">
+                <span>Instagram Handle (optional)</span>
+                <input type="text" name="instagram" id="guestInsta" placeholder="@hollow_soul" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span>Costume Theme / Concept</span>
+                <input type="text" name="costume" id="guestCostume" placeholder="e.g. Blood Countess / Necromancer" autocomplete="off" />
+              </label>
+            </div>
+
+            <!-- Primary CTAs -->
+            <div class="booking-actions">
+              <button class="btn btn--blood btn--full" type="submit" id="submitPassBtn">
+                <span>CONFIRM &amp; ISSUE DIGITAL PASS ➔</span>
+              </button>
+              
+              <div class="quick-pay-row">
+                <button type="button" class="btn btn--outline" id="whatsappPayBtn">
+                  <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z"/></svg>
+                  <span>DM ON WHATSAPP FOR PASS</span>
+                </button>
+                
+                <button type="button" class="btn btn--ghost" id="upiModalBtn">
+                  <span>PAY VIA UPI / QR CODE</span>
+                </button>
+              </div>
+            </div>
+
+            <p class="form-note">✦ Official Digital Pass generated instantly · QR scanned at gate ingress · 18+ strictly</p>
+            <p class="form-error" id="formError" role="alert" hidden>Please provide your name and WhatsApp contact number.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Holographic Collector's Pass -->
+      <div class="ticket-wrap" id="ticketWrap" hidden>
+        <div class="ticket" role="status">
+          <div class="ticket-shimmer"></div>
+          <div class="ticket-notch ticket-notch--top"></div>
+          <div class="ticket-notch ticket-notch--bottom"></div>
+
+          <div class="ticket-main">
+            <div class="ticket-topline">
+              <span class="ticket-kicker">ADMISSION PASS · HOLLOW HILL FESTIVAL 2026</span>
+              <span class="ticket-status-pill">OFFICIAL ADMIT</span>
+            </div>
+            
+            <h2 class="ticket-title">HOLLOW HILL</h2>
+            <p class="ticket-tagline">SATURDAY 31 OCTOBER 2026 · ASHGROVE MANOR</p>
+
+            <dl class="ticket-meta">
+              <div><dt>ATTENDEE</dt><dd class="t-name">Guest</dd></div>
+              <div><dt>PASS TIER</dt><dd class="t-tier">Coven Duo</dd></div>
+              <div><dt>SOULS</dt><dd class="t-guests">2 Souls</dd></div>
+              <div><dt>TOTAL PAID</dt><dd class="t-amount">₹2,199</dd></div>
+              <div><dt>TIME</dt><dd>8:00 PM – LATE</dd></div>
+              <div><dt>LOCATION</dt><dd>13 Raven Lane, Ashgrove</dd></div>
+            </dl>
+
+            <div class="ticket-barcode-wrap">
+              <div class="ticket-barcode">
+                <svg viewBox="0 0 280 40" preserveAspectRatio="none"><path d="M0,0 h3 v40 h-3 z M6,0 h1 v40 h-1 z M10,0 h4 v40 h-4 z M17,0 h2 v40 h-2 z M22,0 h1 v40 h-1 z M26,0 h5 v40 h-5 z M34,0 h2 v40 h-2 z M39,0 h1 v40 h-1 z M43,0 h4 v40 h-4 z M50,0 h2 v40 h-2 z M55,0 h1 v40 h-1 z M58,0 h6 v40 h-6 z M67,0 h2 v40 h-2 z M72,0 h3 v40 h-3 z M78,0 h1 v40 h-1 z M82,0 h5 v40 h-5 z M90,0 h2 v40 h-2 z M95,0 h1 v40 h-1 z M98,0 h3 v40 h-3 z M104,0 h4 v40 h-4 z M111,0 h2 v40 h-2 z M116,0 h1 v40 h-1 z M120,0 h6 v40 h-6 z M129,0 h2 v40 h-2 z M134,0 h3 v40 h-3 z M140,0 h1 v40 h-1 z M144,0 h4 v40 h-4 z M151,0 h2 v40 h-2 z M156,0 h1 v40 h-1 z M160,0 h5 v40 h-5 z M168,0 h2 v40 h-2 z M173,0 h3 v40 h-3 z M179,0 h1 v40 h-1 z M183,0 h4 v40 h-4 z M190,0 h2 v40 h-2 z M195,0 h6 v40 h-6 z M204,0 h1 v40 h-1 z M208,0 h3 v40 h-3 z M214,0 h2 v40 h-2 z M219,0 h4 v40 h-4 z M226,0 h1 v40 h-1 z M230,0 h5 v40 h-5 z M238,0 h2 v40 h-2 z M243,0 h3 v40 h-3 z M249,0 h1 v40 h-1 z M253,0 h4 v40 h-4 z M260,0 h2 v40 h-2 z M265,0 h5 v40 h-5 z M273,0 h2 v40 h-2 z M278,0 h2 v40 h-2 z" fill="currentColor"/></svg>
+              </div>
+              <span class="ticket-code-text t-no">Nº HH-2026-8842</span>
+            </div>
+          </div>
+
+          <div class="ticket-stub">
+            <div class="qr-box">
+              <svg viewBox="0 0 100 100" class="qr-svg"><rect width="100" height="100" fill="#050505"/><path d="M10,10 h30 v30 h-30 z M18,18 h14 v14 h-14 z M60,10 h30 v30 h-30 z M68,18 h14 v14 h-14 z M10,60 h30 v30 h-30 z M18,68 h14 v14 h-14 z M48,15 h6 v6 h-6 z M48,30 h6 v6 h-6 z M15,48 h6 v6 h-6 z M30,48 h6 v6 h-6 z M48,48 h6 v6 h-6 z M65,48 h6 v6 h-6 z M80,48 h6 v6 h-6 z M48,65 h6 v6 h-6 z M60,60 h10 v10 h-10 z M75,60 h15 v8 h-15 z M60,75 h8 v15 h-8 z M75,75 h15 v15 h-15 z" fill="#f2f0ec"/></svg>
+              <span>GATE SCAN</span>
+            </div>
+            <span class="ticket-stub-no t-no">HH-2026-8842</span>
+          </div>
+
+          <div class="ticket-stamp">ADMITTED ✦ NO RETURN</div>
+        </div>
+
+        <div class="ticket-action-btns">
+          <button type="button" class="btn btn--small" id="downloadPassBtn">Download Digital Pass</button>
+          <button type="button" class="link-btn ticket-reset">Modify / Book Another Pass</button>
+        </div>
+      </div>
+
+      <!-- Ghoul Quiz Modal -->
+      <div class="modal" id="quizModal" hidden>
+        <div class="modal-backdrop" id="quizModalBackdrop"></div>
+        <div class="modal-content quiz-modal-content">
+          <button type="button" class="modal-close-btn" id="quizModalCloseBtn">&times;</button>
+          <div class="panel quiz" style="border:none;background:none;padding:0;">
+            <p class="panel-kicker">DISCOVER YOUR INNER GHOUL</p>
+            <div class="quiz-steps">
+              <fieldset class="quiz-q is-active">
+                <legend>Your ideal Friday night?</legend>
+                <button type="button" data-ghoul="vampire">Brooding in a candlelit castle</button>
+                <button type="button" data-ghoul="witch">Brewing something questionable</button>
+                <button type="button" data-ghoul="ghost">Floating around, eavesdropping</button>
+                <button type="button" data-ghoul="werewolf">Running wild under the full moon</button>
+              </fieldset>
+              <fieldset class="quiz-q">
+                <legend>Pick a party snack.</legend>
+                <button type="button" data-ghoul="vampire">Blood-orange slices</button>
+                <button type="button" data-ghoul="witch">Eye-of-newt crisps</button>
+                <button type="button" data-ghoul="ghost">Nothing. I'm see-through.</button>
+                <button type="button" data-ghoul="werewolf">A very rare steak</button>
+              </fieldset>
+              <fieldset class="quiz-q">
+                <legend>Your signature dance move?</legend>
+                <button type="button" data-ghoul="vampire">The slow, sinister waltz</button>
+                <button type="button" data-ghoul="witch">Stirring the cauldron</button>
+                <button type="button" data-ghoul="ghost">The vanishing act</button>
+                <button type="button" data-ghoul="werewolf">Howl and headbang</button>
+              </fieldset>
+              <div class="quiz-result" hidden>
+                <svg class="quiz-result-icon icon" aria-hidden="true"><use href="#i-ghost" /></svg>
+                <p class="quiz-result-label">You are a…</p>
+                <p class="quiz-result-name"></p>
+                <p class="quiz-result-desc"></p>
+                <button type="button" class="link-btn quiz-retake">Retake the quiz</button>
+              </div>
+            </div>
+            <div class="quiz-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPI QR Modal -->
+      <div class="modal" id="upiModal" hidden>
+        <div class="modal-backdrop" id="upiModalBackdrop"></div>
+        <div class="modal-content upi-modal-content">
+          <button type="button" class="modal-close-btn" id="upiModalCloseBtn">&times;</button>
+          <p class="eyebrow text-blood">DIRECT UPI PAYMENT · HOLLOW HILL</p>
+          <h3 class="modal-title">Scan to Pay via UPI</h3>
+          <div class="upi-qr-card">
+            <svg viewBox="0 0 160 160" class="upi-qr-code"><rect width="160" height="160" fill="#f2f0ec"/><path d="M16,16 h40 v40 h-40 z M24,24 h24 v24 h-24 z M104,16 h40 v40 h-40 z M112,24 h24 v24 h-24 z M16,104 h40 v40 h-40 z M24,112 h24 v24 h-24 z M68,24 h12 v12 h-12 z M68,48 h12 v12 h-12 z M24,68 h12 v12 h-12 z M48,68 h12 v12 h-12 z M68,68 h24 v24 h-24 z M104,68 h12 v12 h-12 z M128,68 h12 v12 h-12 z M68,104 h12 v24 h-12 z M92,104 h24 v12 h-24 z M128,104 h16 v16 h-16 z M92,128 h12 v16 h-12 z M116,128 h28 v16 h-28 z" fill="#050505"/></svg>
+            <p class="upi-id-badge">UPI ID: <strong id="upiIdText">hollowhill@upi</strong></p>
+            <button type="button" class="btn btn--small" id="copyUpiBtn">Copy UPI ID</button>
+            <span class="upi-copy-msg" id="upiCopyMsg" hidden>✓ Copied to clipboard!</span>
+          </div>
+          <p class="modal-note">Accepts GPay, PhonePe, Paytm &amp; all UPI apps. DM screenshot on WhatsApp for instant confirmation.</p>
+        </div>
       </div>
 
       <div class="faq">
@@ -490,15 +722,41 @@
       <p class="kicker">Until the 31st…</p>
       <h2 class="finale-title">See you on the other side</h2>
       <p class="finale-meta">Sat 31 Oct 2026 · 8pm · Hollow Hill Manor, 13 Raven Lane</p>
-      <a class="btn" href="#rsvp" data-scroll>RSVP before it's too late</a>
+      <a class="btn" href="#passes" data-scroll>GET PASS BEFORE IT'S TOO LATE</a>
     </div>
     <p class="fineprint">
-      A fictional party with real screams. Built with GSAP &amp; ScrollTrigger.
+      A dark immersive Halloween experience. Built with GSAP &amp; ScrollTrigger.
       Photography from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> (see CREDITS.md).
       Icons by Lorc, Delapouite &amp; contributors from <a href="https://game-icons.net" target="_blank" rel="noopener">game-icons.net</a>,
       <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.
     </p>
   </footer>
+
+  <!-- Floating Mobile Bar like FERAL -->
+  <div class="mobile-pass-bar" id="mobilePassBar">
+    <div class="mobile-pass-meta">
+      <span class="mobile-pulse"></span>
+      <div>
+        <strong>31 OCT 2026</strong>
+        <span>ASHGROVE MANOR</span>
+      </div>
+    </div>
+    <a href="#passes" class="btn btn--small mobile-pass-cta" data-scroll>GET PASS ➔</a>
+  </div>
+
+  <!-- Ambient Sound Toggle Button like FERAL (Generative Web Audio API drone) -->
+  <button class="sound-toggle" id="soundToggle" aria-label="Toggle atmospheric sound">
+    <span class="sound-bars">
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+    </span>
+    <span class="sound-text" id="soundLabel">TAP FOR SOUND</span>
+  </button>
+
+  <!-- Film Grain Overlay like FERAL -->
+  <div class="grain" aria-hidden="true"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>

@@ -189,61 +189,438 @@
     try { localStorage.removeItem(STORAGE_KEY); } catch (_) { /* nothing to clear */ }
   }
 
-  function showTicket(data, animate) {
-    const wrap = $(".ticket-wrap");
-    $(".t-name").textContent = data.name;
-    $(".t-guests").textContent = data.guests;
-    $(".t-tier").textContent = data.tier;
-    $(".t-ghoul").textContent = data.ghoul;
-    $(".ticket-no").textContent = data.no;
-    wrap.hidden = false;
-    ScrollTrigger.refresh();
-    const stamp = $(".ticket-stamp");
-    if (!animate || prefersReduced) {
-      gsap.set(stamp, { rotation: -12 });
-      return;
-    }
-    smoothScrollTo(wrap, 140);
-    gsap.timeline({ delay: 0.6 })
-      .fromTo(".ticket", { y: 80, rotation: -5, scale: 0.9, autoAlpha: 0 }, { y: 0, rotation: 0, scale: 1, autoAlpha: 1, duration: 0.9, ease: "back.out(1.6)" })
-      .fromTo(stamp, { scale: 3, rotation: -40, autoAlpha: 0 }, { scale: 1, rotation: -12, autoAlpha: 0.85, duration: 0.35, ease: "power4.in" }, "+=0.15")
-      .fromTo(".ticket", { x: -6 }, { x: 0, duration: 0.5, ease: "elastic.out(1, 0.2)" });
+  const TIERS = {
+    mortal: {
+      name: "Early Mortal",
+      price: 1199,
+      type: "single",
+      min: 1,
+      max: 20,
+      badge: "PHASE II · FILLING FAST",
+      rateLabel: "RATE PER PERSON",
+      unitSingular: "SOUL",
+      unitPlural: "SOULS",
+    },
+    coven: {
+      name: "Coven Duo",
+      price: 2199,
+      type: "couple",
+      min: 1,
+      max: 10,
+      badge: "MOST POPULAR",
+      rateLabel: "RATE PER COUPLE",
+      unitSingular: "COUPLE (2 SOULS)",
+      unitPlural: "COUPLES",
+    },
+    vip: {
+      name: "Blood VIP",
+      price: 3499,
+      type: "single",
+      min: 1,
+      max: 12,
+      badge: "VIP EXCLUSIVE · 24 SLOTS",
+      rateLabel: "RATE PER VIP SOUL",
+      unitSingular: "VIP SOUL",
+      unitPlural: "VIP SOULS",
+    },
+    squad: {
+      name: "Spooky Squad",
+      price: 999,
+      type: "group",
+      min: 4,
+      max: 30,
+      badge: "SAVE ₹800+ · GROUP RATE",
+      rateLabel: "RATE PER SQUAD SOUL",
+      unitSingular: "SOUL (SQUAD RATE)",
+      unitPlural: "SOULS (SQUAD RATE)",
+    },
+  };
+
+  const bookingState = {
+    tierId: "coven",
+    qty: 1,
+  };
+
+  function formatRupees(num) {
+    return "₹" + Number(num).toLocaleString("en-IN");
   }
 
-  function initRsvp() {
-    const form = $(".rsvp-form");
-    const nameInput = form.querySelector('[name="name"]');
-    const error = $(".form-error", form);
+  function showTicket(data, animate) {
+    const wrap = $("#ticketWrap");
+    if (!wrap) return;
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = nameInput.value.trim();
-      if (!name) {
-        error.hidden = false;
-        nameInput.focus();
-        gsap.fromTo(nameInput, { x: -10 }, { x: 0, duration: dur(0.6), ease: "elastic.out(1, 0.25)" });
-        return;
+    $$(".t-name").forEach((el) => (el.textContent = data.name));
+    $$(".t-guests").forEach((el) => (el.textContent = data.souls || `${data.guests} Souls`));
+    $$(".t-tier").forEach((el) => (el.textContent = data.tier));
+    $$(".t-amount").forEach((el) => (el.textContent = data.amount || "Paid"));
+    $$(".t-no").forEach((el) => (el.textContent = data.no || "Nº HH-2026-8842"));
+
+    wrap.hidden = false;
+    ScrollTrigger.refresh();
+
+    const stamp = $(".ticket-stamp");
+    if (!animate || prefersReduced) {
+      if (stamp) gsap.set(stamp, { rotation: -12 });
+      return;
+    }
+
+    smoothScrollTo(wrap, 120);
+    gsap.timeline({ delay: 0.4 })
+      .fromTo(".ticket", { y: 70, scale: 0.94, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: 0.85, ease: "back.out(1.5)" })
+      .fromTo(stamp, { scale: 3, rotation: -40, autoAlpha: 0 }, { scale: 1, rotation: -12, autoAlpha: 0.9, duration: 0.35, ease: "power4.in" }, "+=0.2")
+      .fromTo(".ticket", { x: -6 }, { x: 0, duration: 0.4, ease: "elastic.out(1, 0.2)" });
+  }
+
+  function initPasses() {
+    const tierCards = $$(".pass-card");
+    const nameInput = $("#guestName");
+    const phoneInput = $("#guestPhone");
+    const emailInput = $("#guestEmail");
+    const instaInput = $("#guestInsta");
+    const costumeInput = $("#guestCostume");
+    const form = $("#bookingForm");
+    const formError = $("#formError");
+
+    const tierNameEl = $("#calcTierName");
+    const tierBadgeEl = $("#calcTierBadge");
+    const qtyEl = $("#calcQty");
+    const unitEl = $("#calcUnit");
+    const decBtn = $("#calcDec");
+    const incBtn = $("#calcInc");
+    const rateTypeLabel = $("#rateTypeLabel");
+    const rateEachEl = $("#calcRateEach");
+    const formulaEl = $("#calcBreakdownFormula");
+    const totalEl = $("#calcTotalAmount");
+    const discountAlert = $("#calcDiscountAlert");
+    const discountText = $("#calcDiscountText");
+
+    function renderCalc() {
+      const tier = TIERS[bookingState.tierId];
+      if (!tier) return;
+
+      if (bookingState.qty < tier.min) bookingState.qty = tier.min;
+      if (bookingState.qty > tier.max) bookingState.qty = tier.max;
+
+      if (tierNameEl) tierNameEl.textContent = tier.name;
+      if (tierBadgeEl) tierBadgeEl.textContent = tier.badge;
+      if (qtyEl) qtyEl.textContent = bookingState.qty;
+
+      if (unitEl) {
+        if (tier.type === "couple") {
+          unitEl.textContent = bookingState.qty === 1 ? "1 COUPLE = 2 SOULS" : `${bookingState.qty} COUPLES = ${bookingState.qty * 2} SOULS`;
+        } else {
+          unitEl.textContent = bookingState.qty === 1 ? tier.unitSingular : `${bookingState.qty} ${tier.unitPlural}`;
+        }
       }
-      error.hidden = true;
-      const data = {
-        name,
-        guests: form.querySelector('[name="guests"]').value,
-        tier: form.querySelector('[name="tier"]:checked').value,
-        ghoul: state.ghoul || "Undecided",
-        no: "Nº " + (1031 + Math.floor(Math.random() * 8000)),
-      };
-      saveRsvp(data);
-      showTicket(data, true);
+
+      if (decBtn) decBtn.disabled = bookingState.qty <= tier.min;
+      if (incBtn) incBtn.disabled = bookingState.qty >= tier.max;
+
+      if (rateTypeLabel) rateTypeLabel.textContent = tier.rateLabel;
+      if (rateEachEl) rateEachEl.textContent = formatRupees(tier.price);
+
+      const total = tier.price * bookingState.qty;
+      if (totalEl) totalEl.textContent = formatRupees(total);
+
+      if (formulaEl) {
+        if (tier.type === "couple") {
+          formulaEl.textContent = `${bookingState.qty} couple${bookingState.qty > 1 ? "s" : ""} (${bookingState.qty * 2} souls) × ${formatRupees(tier.price)}`;
+        } else {
+          formulaEl.textContent = `${bookingState.qty} soul${bookingState.qty > 1 ? "s" : ""} × ${formatRupees(tier.price)}`;
+        }
+      }
+
+      if (discountAlert && discountText) {
+        if (tier.type === "group") {
+          discountAlert.hidden = false;
+          const saved = (1199 - 999) * bookingState.qty;
+          discountText.textContent = `GROUP RATE APPLIED — YOU SAVE ${formatRupees(saved)} TODAY!`;
+        } else if (tier.type === "single" && bookingState.qty >= 4 && bookingState.tierId === "mortal") {
+          discountAlert.hidden = false;
+          discountText.textContent = `HINT: SWITCH TO "SPOOKY SQUAD" TO SAVE ₹200 ON EVERY SOUL!`;
+        } else {
+          discountAlert.hidden = true;
+        }
+      }
+
+      tierCards.forEach((c) => {
+        const isThis = c.dataset.tierId === bookingState.tierId;
+        c.classList.toggle("is-active", isThis);
+      });
+    }
+
+    tierCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const tid = card.dataset.tierId;
+        if (!tid || !TIERS[tid]) return;
+        bookingState.tierId = tid;
+        const tier = TIERS[tid];
+        if (bookingState.qty < tier.min) bookingState.qty = tier.min;
+        renderCalc();
+      });
+
+      const selBtn = card.querySelector(".pass-select-btn");
+      if (selBtn) {
+        selBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const tid = card.dataset.tierId;
+          if (!tid || !TIERS[tid]) return;
+          bookingState.tierId = tid;
+          const tier = TIERS[tid];
+          if (bookingState.qty < tier.min) bookingState.qty = tier.min;
+          renderCalc();
+          const matrix = $("#bookingMatrix");
+          if (matrix) smoothScrollTo(matrix, 90);
+        });
+      }
     });
 
-    $(".ticket-reset").addEventListener("click", () => {
-      clearRsvp();
-      $(".ticket-wrap").hidden = true;
-      ScrollTrigger.refresh();
-    });
+    if (decBtn) {
+      decBtn.addEventListener("click", () => {
+        const tier = TIERS[bookingState.tierId];
+        if (bookingState.qty > tier.min) {
+          bookingState.qty--;
+          renderCalc();
+        }
+      });
+    }
+
+    if (incBtn) {
+      incBtn.addEventListener("click", () => {
+        const tier = TIERS[bookingState.tierId];
+        if (bookingState.qty < tier.max) {
+          bookingState.qty++;
+          renderCalc();
+        }
+      });
+    }
+
+    renderCalc();
+
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = (nameInput?.value || "").trim();
+        const phone = (phoneInput?.value || "").trim();
+        const email = (emailInput?.value || "").trim();
+        const insta = (instaInput?.value || "").trim();
+        const costume = (costumeInput?.value || "").trim();
+
+        if (!name || !phone) {
+          if (formError) {
+            formError.hidden = false;
+            formError.textContent = "Please provide both your name and WhatsApp number to issue your pass.";
+          }
+          if (!name) nameInput?.focus();
+          else phoneInput?.focus();
+          return;
+        }
+
+        if (formError) formError.hidden = true;
+
+        const tier = TIERS[bookingState.tierId];
+        const souls = tier.type === "couple" ? bookingState.qty * 2 : bookingState.qty;
+        const total = tier.price * bookingState.qty;
+        const passNo = "HH-26-" + Math.floor(1000 + Math.random() * 9000);
+
+        const data = {
+          name,
+          phone,
+          email,
+          insta,
+          costume,
+          tier: tier.name,
+          tierId: bookingState.tierId,
+          qty: bookingState.qty,
+          souls: souls + (souls === 1 ? " Soul" : " Souls"),
+          amount: formatRupees(total),
+          no: passNo,
+          date: "Sat 31 Oct 2026 · 8:00 pm",
+        };
+
+        saveRsvp(data);
+        showTicket(data, true);
+      });
+    }
+
+    const waBtn = $("#whatsappPayBtn");
+    if (waBtn) {
+      waBtn.addEventListener("click", () => {
+        const name = (nameInput?.value || "Guest").trim();
+        const phone = (phoneInput?.value || "").trim();
+        const tier = TIERS[bookingState.tierId];
+        const souls = tier.type === "couple" ? bookingState.qty * 2 : bookingState.qty;
+        const total = formatRupees(tier.price * bookingState.qty);
+
+        const msg = encodeURIComponent(
+          `Hi Hollow Hill Manor! 🎃\nI want to book passes for Halloween 2026.\n✦ Pass: ${tier.name}\n✦ Attendees: ${souls} Souls\n✦ Total Amount: ${total}\n✦ Name: ${name}\n✦ Phone: ${phone}\nPlease share UPI / payment instructions to confirm!`
+        );
+        window.open(`https://wa.me/919999999999?text=${msg}`, "_blank");
+      });
+    }
+
+    const upiModal = $("#upiModal");
+    const upiOpenBtn = $("#upiModalBtn");
+    const upiCloseBtn = $("#upiModalCloseBtn");
+    const upiBackdrop = $("#upiModalBackdrop");
+    const copyUpiBtn = $("#copyUpiBtn");
+    const upiCopyMsg = $("#upiCopyMsg");
+
+    function openUpi() { if (upiModal) upiModal.hidden = false; }
+    function closeUpi() { if (upiModal) upiModal.hidden = true; }
+
+    if (upiOpenBtn) upiOpenBtn.addEventListener("click", openUpi);
+    if (upiCloseBtn) upiCloseBtn.addEventListener("click", closeUpi);
+    if (upiBackdrop) upiBackdrop.addEventListener("click", closeUpi);
+
+    if (copyUpiBtn) {
+      copyUpiBtn.addEventListener("click", () => {
+        navigator.clipboard?.writeText("hollowhill@upi").then(() => {
+          if (upiCopyMsg) {
+            upiCopyMsg.hidden = false;
+            setTimeout(() => (upiCopyMsg.hidden = true), 2500);
+          }
+        });
+      });
+    }
+
+    const quizModal = $("#quizModal");
+    const quizOpenBtn = $("#openQuizBtn");
+    const quizCloseBtn = $("#quizModalCloseBtn");
+    const quizBackdrop = $("#quizModalBackdrop");
+
+    if (quizOpenBtn && quizModal) quizOpenBtn.addEventListener("click", () => (quizModal.hidden = false));
+    if (quizCloseBtn && quizModal) quizCloseBtn.addEventListener("click", () => (quizModal.hidden = true));
+    if (quizBackdrop && quizModal) quizBackdrop.addEventListener("click", () => (quizModal.hidden = true));
+
+    const downloadBtn = $("#downloadPassBtn");
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", () => {
+        window.print();
+      });
+    }
+
+    const resetBtn = $(".ticket-reset");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        clearRsvp();
+        const wrap = $("#ticketWrap");
+        if (wrap) wrap.hidden = true;
+        ScrollTrigger.refresh();
+      });
+    }
 
     const saved = loadRsvp();
     if (saved && saved.name) showTicket(saved, false);
+  }
+
+  /* =========================================================
+     FERAL AMBIENT WEB AUDIO DRONE & TITLE TRICK
+     ========================================================= */
+  let audioCtx = null;
+  let audioNodes = null;
+  let isSoundPlaying = false;
+
+  function initSoundToggle() {
+    const btn = $("#soundToggle");
+    const label = $("#soundLabel");
+    if (!btn) return;
+
+    function startDrone() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        audioCtx = new AudioContextClass();
+      }
+
+      if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+
+      if (audioNodes) {
+        audioNodes.gain.gain.setTargetAtTime(0.08, audioCtx.currentTime, 0.5);
+        isSoundPlaying = true;
+        btn.classList.add("is-active");
+        if (label) label.textContent = "SOUND ON";
+        return;
+      }
+
+      const now = audioCtx.currentTime;
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const oscSub = audioCtx.createOscillator();
+      const filter = audioCtx.createBiquadFilter();
+      const lfo = audioCtx.createOscillator();
+      const lfoGain = audioCtx.createGain();
+      const masterGain = audioCtx.createGain();
+
+      osc1.type = "sawtooth";
+      osc1.frequency.setValueAtTime(55, now);
+
+      osc2.type = "triangle";
+      osc2.frequency.setValueAtTime(55.4, now);
+
+      oscSub.type = "sine";
+      oscSub.frequency.setValueAtTime(27.5, now);
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(220, now);
+      filter.Q.setValueAtTime(3.5, now);
+
+      lfo.type = "sine";
+      lfo.frequency.setValueAtTime(0.08, now);
+      lfoGain.gain.setValueAtTime(140, now);
+      lfo.connect(lfoGain);
+      lfoGain.connect(filter.frequency);
+
+      masterGain.gain.setValueAtTime(0.001, now);
+      masterGain.gain.exponentialRampToValueAtTime(0.08, now + 1.2);
+
+      osc1.connect(filter);
+      osc2.connect(filter);
+      oscSub.connect(filter);
+      filter.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      oscSub.start(now);
+      lfo.start(now);
+
+      audioNodes = { osc1, osc2, oscSub, lfo, filter, gain: masterGain };
+      isSoundPlaying = true;
+      btn.classList.add("is-active");
+      if (label) label.textContent = "SOUND ON";
+    }
+
+    function stopDrone() {
+      if (audioNodes && audioCtx) {
+        audioNodes.gain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.4);
+      }
+      isSoundPlaying = false;
+      btn.classList.remove("is-active");
+      if (label) label.textContent = "SOUND OFF";
+    }
+
+    btn.addEventListener("click", () => {
+      if (isSoundPlaying) stopDrone();
+      else startDrone();
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && isSoundPlaying && audioCtx) {
+        audioCtx.suspend();
+      } else if (!document.hidden && isSoundPlaying && audioCtx) {
+        audioCtx.resume();
+      }
+    });
+  }
+
+  function initTabTitle() {
+    const originalTitle = document.title;
+    document.addEventListener("visibilitychange", () => {
+      document.title = document.hidden ? "COME BACK IF YOU DARE..." : originalTitle;
+    });
   }
 
   function initFaq() {
@@ -786,7 +1163,9 @@
     initCountdown();
     initNavLinks();
     initQuiz();
-    initRsvp();
+    initPasses();
+    initSoundToggle();
+    initTabTitle();
     initFaq();
     initGhostCursor();
     pupilsFollowPointer();
@@ -805,9 +1184,9 @@
       });
     });
     const fonts = Promise.all([
-      document.fonts.load('1em "Creepster"'),
+      document.fonts.load('1em "Anton"'),
       document.fonts.load('600 1em "Cormorant Garamond"'),
-      document.fonts.load('1em "DM Sans"'),
+      document.fonts.load('1em "Inter"'),
     ]).catch(() => {});
     const heroImg = $(".hero-photo img");
     const heroPhoto = (heroImg.decode ? heroImg.decode() : Promise.resolve()).catch(() => {});
