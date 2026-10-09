@@ -615,10 +615,42 @@
       if (label) label.textContent = "SOUND OFF";
     }
 
-    btn.addEventListener("click", () => {
+    function unlockAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === "suspended") {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSound(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      unlockAudioContext();
       if (isSoundPlaying) stopDrone();
       else startDrone();
-    });
+    }
+
+    // Bind both touch and click events for maximum mobile browser compatibility
+    btn.addEventListener("touchstart", toggleSound, { passive: false });
+    btn.addEventListener("click", toggleSound);
+
+    // Global first-touch unlock for mobile devices
+    const unlockHandler = () => {
+      unlockAudioContext();
+      window.removeEventListener("touchstart", unlockHandler);
+      window.removeEventListener("touchend", unlockHandler);
+      window.removeEventListener("click", unlockHandler);
+    };
+    window.addEventListener("touchstart", unlockHandler, { once: true, passive: true });
+    window.addEventListener("touchend", unlockHandler, { once: true, passive: true });
+    window.addEventListener("click", unlockHandler, { once: true, passive: true });
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden && isSoundPlaying && audioCtx) {
