@@ -182,12 +182,6 @@
         <a href="#passes" class="btn btn--blood btn--full mobile-nav-cta" data-scroll>
           <span>GET YOUR PASS &rarr;</span>
         </a>
-      </div>
-      <div class="mobile-nav-quiz">
-        <button type="button" class="mobile-quiz-btn" id="mobileQuizBtn">
-          <span>🎃 Need costume ideas? Take Ghoul Quiz</span>
-        </button>
-      </div>
       <div class="mobile-nav-footer">
         <div class="mobile-nav-socials">
           <a href="https://www.instagram.com/onelife.eventss" target="_blank" rel="noopener noreferrer" class="mobile-social-link">
@@ -661,12 +655,6 @@
             </div>
           </div>
 
-          <div class="quiz-trigger-box">
-            <span class="quiz-trigger-tag">Costume Indecision?</span>
-            <p class="quiz-trigger-text">Not sure which creature of the night to summon? Unveil your darkness.</p>
-            <button type="button" class="btn btn--outline btn--small" id="openQuizBtn">Take the Ghoul Quiz &rarr;</button>
-          </div>
-
         </div>
 
         <!-- RIGHT: Registration & Booking Details -->
@@ -732,50 +720,6 @@
       </div>
 
 
-
-      <!-- Ghoul Quiz Modal -->
-      <div class="modal" id="quizModal" hidden>
-        <div class="modal-backdrop" id="quizModalBackdrop"></div>
-        <div class="modal-content quiz-modal-content">
-          <button type="button" class="modal-close-btn" id="quizModalCloseBtn">&times;</button>
-          <div class="panel quiz" style="border:none;background:none;padding:0;">
-            <p class="panel-kicker">DISCOVER YOUR INNER GHOUL</p>
-            <div class="quiz-steps">
-              <fieldset class="quiz-q is-active">
-                <legend>Your ideal Friday night?</legend>
-                <button type="button" data-ghoul="vampire">Brooding in a candlelit castle</button>
-                <button type="button" data-ghoul="witch">Brewing something questionable</button>
-                <button type="button" data-ghoul="ghost">Floating around, eavesdropping</button>
-                <button type="button" data-ghoul="werewolf">Running wild under the full moon</button>
-              </fieldset>
-              <fieldset class="quiz-q">
-                <legend>Pick a party snack.</legend>
-                <button type="button" data-ghoul="vampire">Blood-orange slices</button>
-                <button type="button" data-ghoul="witch">Eye-of-newt crisps</button>
-                <button type="button" data-ghoul="ghost">Nothing. I'm see-through.</button>
-                <button type="button" data-ghoul="werewolf">A very rare steak</button>
-              </fieldset>
-              <fieldset class="quiz-q">
-                <legend>Your signature dance move?</legend>
-                <button type="button" data-ghoul="vampire">The slow, sinister waltz</button>
-                <button type="button" data-ghoul="witch">Stirring the cauldron</button>
-                <button type="button" data-ghoul="ghost">The vanishing act</button>
-                <button type="button" data-ghoul="werewolf">Howl and headbang</button>
-              </fieldset>
-              <div class="quiz-result" hidden>
-                <svg class="quiz-result-icon icon" aria-hidden="true">
-                  <use href="#i-ghost" />
-                </svg>
-                <p class="quiz-result-label">You are a…</p>
-                <p class="quiz-result-name"></p>
-                <p class="quiz-result-desc"></p>
-                <button type="button" class="link-btn quiz-retake">Retake the quiz</button>
-              </div>
-            </div>
-            <div class="quiz-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-          </div>
-        </div>
-      </div>
 
       <!-- UPI QR Modal -->
       <div class="modal" id="upiModal" hidden>
