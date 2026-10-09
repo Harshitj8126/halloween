@@ -110,6 +110,85 @@
     });
   }
 
+  function initMobileNav() {
+    const toggle = $("#navToggle");
+    const drawer = $("#mobileNavDrawer");
+    const closeBtn = $("#mobileNavClose");
+    const backdrop = $("#mobileNavBackdrop");
+    const quizBtn = $("#mobileQuizBtn");
+    const quizModal = $("#quizModal");
+
+    if (!toggle || !drawer) return;
+
+    function openDrawer() {
+      drawer.classList.add("is-open");
+      toggle.classList.add("is-active");
+      toggle.setAttribute("aria-expanded", "true");
+      drawer.setAttribute("aria-hidden", "false");
+      document.body.classList.add("is-drawer-open");
+      document.documentElement.classList.add("is-drawer-open");
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove("is-open");
+      toggle.classList.remove("is-active");
+      toggle.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("is-drawer-open");
+      document.documentElement.classList.remove("is-drawer-open");
+    }
+
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isOpen = drawer.classList.contains("is-open");
+      if (isOpen) closeDrawer();
+      else openDrawer();
+    });
+
+    if (closeBtn) closeBtn.addEventListener("click", closeDrawer);
+    if (backdrop) backdrop.addEventListener("click", closeDrawer);
+
+    // Close on any link click inside drawer
+    $$("a[data-scroll]", drawer).forEach((link) => {
+      link.addEventListener("click", () => {
+        closeDrawer();
+      });
+    });
+
+    // Quiz trigger from mobile drawer
+    if (quizBtn && quizModal) {
+      quizBtn.addEventListener("click", () => {
+        closeDrawer();
+        setTimeout(() => {
+          quizModal.hidden = false;
+        }, 320);
+      });
+    }
+
+    // Close on Escape key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && drawer.classList.contains("is-open")) {
+        closeDrawer();
+      }
+    });
+  }
+
+  function initMobilePassBar() {
+    const passBar = $("#mobilePassBar");
+    const passesSection = $("#passes");
+    if (!passBar || !passesSection) return;
+
+    ScrollTrigger.create({
+      trigger: passesSection,
+      start: "top 80%",
+      end: "bottom 20%",
+      onEnter: () => passBar.classList.add("is-hidden"),
+      onLeave: () => passBar.classList.remove("is-hidden"),
+      onEnterBack: () => passBar.classList.add("is-hidden"),
+      onLeaveBack: () => passBar.classList.remove("is-hidden"),
+    });
+  }
+
   const GHOULS = {
     vampire: { name: "Vampire", icon: "vampire-dracula", desc: "Elegant, nocturnal, suspiciously pale. You'll own the ballroom by midnight." },
     witch: { name: "Witch", icon: "witch-face", desc: "You'll be in the Potion Lab improving every recipe. Bring your own broom." },
@@ -1121,6 +1200,8 @@
     buildBats();
     initCountdown();
     initNavLinks();
+    initMobileNav();
+    initMobilePassBar();
     initQuiz();
     initPasses();
     initSoundToggle();
