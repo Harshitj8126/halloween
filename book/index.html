@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0;url=https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" />
+  <script>
+    window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform";
+  </script>
+  <title>Book Your Pass | WICKED Halloween 2026</title>
+  <meta name="description"
+    content="Reserve your admission pass for WICKED Halloween 2026. Strictly 18+. Costumes mandatory." />
+
+  <!-- Favicon -->
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎃</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=Creepster&display=swap"
+    rel="stylesheet" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <style>
+    /* Dedicated Page Layout & Horror Aesthetics */
+    .book-page-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--midnight);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .book-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(5, 5, 5, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 1.2rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .book-brand {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      color: var(--bone);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .book-back-link {
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--mist);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .book-back-link:hover {
+      color: var(--blood-glow);
+      transform: translateX(-3px);
+    }
+
+    .book-main {
+      flex: 1;
+      max-width: 1180px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 3rem 1.5rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .book-title-area {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .book-step-tag {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: var(--blood-bright);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      background: rgba(158, 15, 24, 0.15);
+      border: 1px solid rgba(255, 42, 42, 0.3);
+    }
+
+    .book-page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--bone);
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 42, 42, 0.4);
+    }
+
+    .book-page-lede {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: rgba(242, 240, 236, 0.8);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Interactive Container Grid */
+    .booking-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      max-width: 680px;
+      margin: 0 auto;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .booking-layout-grid.has-submitted {
+      max-width: 1180px;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 900px) {
+      .booking-layout-grid.has-submitted {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .book-card {
+      background: rgba(14, 13, 13, 0.92);
+      border: 1px solid var(--line);
+      padding: 2.2rem;
+      position: relative;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .book-card:hover {
+      border-color: rgba(255, 42, 42, 0.35);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(158, 15, 24, 0.15);
+    }
+
+    .card-heading {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--blood-glow);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1px dashed rgba(242, 240, 236, 0.12);
+      padding-bottom: 0.75rem;
+    }
+
+    /* Inputs & Fields */
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .input-label {
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mist);
+    }
+
+    .input-label span.req {
+      color: var(--blood-bright);
+    }
+
+    .input-control,
+    .select-control {
+      background: rgba(5, 5, 5, 0.85);
+      border: 1px solid var(--line);
+      color: var(--bone);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 0;
+      transition: all 0.25s ease;
+      width: 100%;
+    }
+
+    .select-control option {
+      background: #090909;
+      color: #fff;
+    }
+
+    .input-control:focus,
+    .select-control:focus {
+      outline: none;
+      border-color: var(--blood-bright);
+      box-shadow: 0 0 18px rgba(255, 42, 42, 0.35);
+      background: rgba(9, 9, 9, 0.95);
+    }
+
+    .input-control.is-invalid,
+    .select-control.is-invalid {
+      border-color: #ff2a2a !important;
+      box-shadow: 0 0 15px rgba(255, 42, 42, 0.5) !important;
+      background: rgba(40, 10, 15, 0.7) !important;
+    }
+
+    .field-error {
+      font-size: 0.78rem;
+      color: #ff4d4d;
+      font-weight: 600;
+      display: none;
+      margin-top: 0.2rem;
+    }
+
+    /* Stepper for Quantity */
+    .stepper-wrap {
+      background: rgba(5, 5, 5, 0.9);
+      border: 1px solid var(--line);
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stepper-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .step-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(242, 240, 236, 0.08);
+      border: 1px solid rgba(242, 240, 236, 0.2);
+      color: var(--bone);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .step-btn:hover:not(:disabled) {
+      background: var(--blood);
+      border-color: var(--blood-bright);
+      color: var(--bone);
+      box-shadow: 0 0 15px rgba(255, 42, 42, 0.5);
+    }
+
+    .step-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .step-val {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      min-width: 25px;
+      text-align: center;
+      color: var(--bone);
+    }
+
+    /* Amount Box */
+    .total-box {
+      background: rgba(28, 14, 20, 0.6);
+      border: 1px solid rgba(255, 42, 42, 0.3);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-label {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--mist);
+      text-transform: uppercase;
+    }
+
+    .total-amount-display {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      color: var(--blood-glow);
+      text-shadow: 0 0 20px rgba(255, 42, 42, 0.6);
+    }
+
+    /* Buttons */
+    .btn-submit {
+      width: 100%;
+      padding: 1.2rem;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      justify-content: center;
+      background: var(--blood);
+      color: var(--bone);
+      border: 1px solid var(--blood-bright);
+      box-shadow: 0 10px 35px rgba(158, 15, 24, 0.5);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--blood-bright);
+      box-shadow: 0 14px 45px rgba(224, 16, 28, 0.75);
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-error-banner {
+      background: rgba(158, 15, 24, 0.25);
+      border: 1px solid var(--blood-bright);
+      color: var(--bone);
+      padding: 0.9rem 1.2rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.88rem;
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* STEP 2 Payment Section (Appears after submission) */
+    .payment-section-card {
+      background: linear-gradient(180deg, rgba(28, 14, 20, 0.95) 0%, rgba(14, 13, 13, 0.98) 100%);
+      border: 1px solid rgba(255, 42, 42, 0.45);
+      padding: 2.2rem;
+      position: relative;
+      display: none;
+      /* Initially hidden */
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(158, 15, 24, 0.25);
+    }
+
+    .payment-section-card.is-visible {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .payment-heading {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--blood-bright);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .horror-banner {
+      background: rgba(158, 15, 24, 0.15);
+      border: 1px dashed rgba(255, 42, 42, 0.4);
+      padding: 1.4rem;
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    .horror-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--blood-glow);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px rgba(255, 42, 42, 0.5);
+    }
+
+    .horror-desc {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(242, 240, 236, 0.88);
+      line-height: 1.5;
+    }
+
+    .payment-summary-list {
+      margin-bottom: 2rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 0;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.55rem 0;
+      font-size: 0.95rem;
+    }
+
+    .summary-item .item-label {
+      color: var(--mist);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .summary-item .item-val {
+      color: var(--bone);
+      font-family: var(--font-sans);
+      font-weight: 600;
+    }
+
+    .summary-item .item-val.highlight-id {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--bone);
+      background: rgba(5, 5, 5, 0.8);
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--line);
+    }
+
+    .summary-item .item-val.highlight-total {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      color: var(--blood-glow);
+    }
+
+    .btn-wa-pay {
+      width: 100%;
+      padding: 1.25rem;
+      font-size: 1.3rem;
+      letter-spacing: 0.06em;
+      justify-content: center;
+      background: #25D366;
+      color: #000;
+      font-weight: 700;
+      border: 1px solid #25D366;
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-wa-pay:hover {
+      background: #20bd5a;
+      box-shadow: 0 14px 40px rgba(37, 211, 102, 0.55);
+      transform: translateY(-2px);
+      color: #000;
+    }
+
+    .status-badge-pending {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255, 170, 0, 0.15);
+      color: #ffaa00;
+      border: 1px solid rgba(255, 170, 0, 0.4);
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+
+<body class="book-page-wrap">
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="book-header">
+    <a href="../" class="book-brand">WICKED</a>
+    <a href="../" class="book-back-link">
+      <span>&larr; BACK TO WEBSITE</span>
+    </a>
+  </header>
+
+  <!-- Main Booking Area -->
+  <main class="book-main">
+    <div class="book-title-area">
+      <span class="book-step-tag">OFFICIAL RESERVATION PORTAL</span>
+      <h1 class="book-page-title">BOOK YOUR PASS</h1>
+      <p class="book-page-lede">
+        Fill your details below to request your admission pass for WICKED 2026.
+      </p>
+    </div>
+
+    <!-- Booking Layout Grid -->
+    <div class="booking-layout-grid" id="bookingGrid">
+
+      <!-- LEFT: Booking Form Card -->
+      <div class="book-card" id="formCard">
+        <h2 class="card-heading">
+          <span>✦</span> REQUISITION FORM
+        </h2>
+
+        <!-- Error Alert Banner -->
+        <div class="form-error-banner" id="errorBanner">
+          <span>⚠️</span>
+          <span id="errorBannerMsg">Please fix the highlighted fields below.</span>
+        </div>
+
+        <form id="bookingForm" novalidate>
+          <!-- Full Name -->
+          <div class="input-field">
+            <label class="input-label" for="inputName">
+              Full Name <span class="req">*</span>
+            </label>
+            <input type="text" id="inputName" name="name" class="input-control" placeholder="e.g. Vladislav / Kabir"
+              required autocomplete="name" maxlength="80" />
+            <span class="field-error" id="errName">Full Name is required.</span>
+          </div>
+
+          <!-- WhatsApp Number -->
+          <div class="input-field">
+            <label class="input-label" for="inputPhone">
+              WhatsApp Number (+91) <span class="req">*</span>
+            </label>
+            <input type="tel" id="inputPhone" name="phone" class="input-control"
+              placeholder="10-digit WhatsApp number (e.g. 9876543210)" required autocomplete="tel" maxlength="15" />
+            <span class="field-error" id="errPhone">Enter a valid 10-digit WhatsApp number.</span>
+          </div>
+
+          <!-- Email Address -->
+          <div class="input-field">
+            <label class="input-label" for="inputEmail">
+              Email Address <span class="req">*</span>
+            </label>
+            <input type="email" id="inputEmail" name="email" class="input-control" placeholder="mortal@ashes.com"
+              required autocomplete="email" />
+            <span class="field-error" id="errEmail">Enter a valid email address.</span>
+          </div>
+
+          <!-- Instagram Username -->
+          <div class="input-field">
+            <label class="input-label" for="inputInsta">
+              Instagram Username <span class="req">*</span>
+            </label>
+            <input type="text" id="inputInsta" name="instagram" class="input-control" placeholder="@hollow_soul"
+              required autocomplete="off" />
+            <span class="field-error" id="errInsta">Instagram username is required.</span>
+          </div>
+
+
+
+          <!-- Costume Theme (Optional) -->
+          <div class="input-field">
+            <label class="input-label" for="inputCostume">
+              Costume Theme <span style="color: var(--muted); font-weight: 400;">(Optional)</span>
+            </label>
+            <input type="text" id="inputCostume" name="costume" class="input-control"
+              placeholder="e.g. Blood Countess / Necromancer / Vampire" autocomplete="off" />
+          </div>
+
+
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-submit" id="submitBtn">
+            <span>SUBMIT DETAILS &rarr;</span>
+          </button>
+        </form>
+      </div>
+
+      <!-- RIGHT: Payment Instructions Card (Appears after successful submission) -->
+      <div class="payment-section-card" id="paymentSection">
+        <span class="status-badge-pending">STATUS: PENDING PAYMENT</span>
+        <h2 class="payment-heading">STEP 2 · DM FOR PAYMENT</h2>
+
+        <!-- Horror Callout Banner -->
+        <div class="horror-banner">
+          <h3 class="horror-title">YOUR SOUL IS ALMOST OURS.</h3>
+          <p class="horror-desc">
+            Your details have been submitted successfully. DM our team on WhatsApp to complete payment and confirm your
+            Wicked pass.
+          </p>
+        </div>
+
+        <!-- Summary Details List -->
+        <div class="payment-summary-list">
+          <div class="summary-item">
+            <span class="item-label">Booking Reference ID:</span>
+            <span class="item-val highlight-id" id="displayBookingId">WK-XXXXX</span>
+          </div>
+          <div class="summary-item">
+            <span class="item-label">Customer Name:</span>
+            <span class="item-val" id="displayName">-</span>
+          </div>
+          <div class="summary-item">
+            <span class="item-label">Selected Pass:</span>
+            <span class="item-val" id="displayTier">-</span>
+          </div>
+          <div class="summary-item">
+            <span class="item-label">Quantity:</span>
+            <span class="item-val" id="displayQty">1</span>
+          </div>
+          <div class="summary-item">
+            <span class="item-label">WhatsApp Contact:</span>
+            <span class="item-val" id="displayPhoneNum">+91 99999 99999</span>
+          </div>
+          <div class="summary-item"
+            style="border-top: 1px dashed var(--line); margin-top: 0.5rem; padding-top: 0.75rem;">
+            <span class="item-label" style="align-self: center;">Total Amount:</span>
+            <span class="item-val highlight-total" id="displayTotal">₹3,599</span>
+          </div>
+        </div>
+
+        <!-- WhatsApp DM CTA -->
+        <a id="waPayLink" href="#" target="_blank" rel="noopener" class="btn-wa-pay">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" />
+          </svg>
+          <span>DM ON WHATSAPP TO PAY &rarr;</span>
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const TIERS = {
+        male_stag: { name: "Male Stag", price: 1999, unitDesc: "1 Person (Solo Soul)", maxQty: 20 },
+        female_stag: { name: "Female Stag", price: 1799, unitDesc: "1 Person (Solo Soul)", maxQty: 20 },
+        couple: { name: "Couple Pass", price: 3599, unitDesc: "1 Couple (2 Souls)", maxQty: 10 }
+      };
+
+      const state = {
+        tierId: "couple",
+        quantity: 1
+      };
+
+      // Check URL query parameters for pre-selected pass tier
+      const urlParams = new URLSearchParams(window.location.search);
+      const preTier = urlParams.get("tier");
+      if (preTier && TIERS[preTier]) {
+        state.tierId = preTier;
+      }
+
+      // DOM Elements
+      const selectTier = document.getElementById("selectTier");
+      const unitDescText = document.getElementById("unitDescText");
+      const btnDec = document.getElementById("btnDec");
+      const btnInc = document.getElementById("btnInc");
+      const qtyVal = document.getElementById("qtyVal");
+      const totalAmountDisplay = document.getElementById("totalAmountDisplay");
+      const bookingForm = document.getElementById("bookingForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const errorBanner = document.getElementById("errorBanner");
+      const errorBannerMsg = document.getElementById("errorBannerMsg");
+
+      const inputName = document.getElementById("inputName");
+      const inputPhone = document.getElementById("inputPhone");
+      const inputEmail = document.getElementById("inputEmail");
+      const inputInsta = document.getElementById("inputInsta");
+      const inputCostume = document.getElementById("inputCostume");
+
+      // Payment section elements
+      const bookingGrid = document.getElementById("bookingGrid");
+      const paymentSection = document.getElementById("paymentSection");
+      const displayBookingId = document.getElementById("displayBookingId");
+      const displayName = document.getElementById("displayName");
+      const displayTier = document.getElementById("displayTier");
+      const displayQty = document.getElementById("displayQty");
+      const displayPhoneNum = document.getElementById("displayPhoneNum");
+      const displayTotal = document.getElementById("displayTotal");
+      const waPayLink = document.getElementById("waPayLink");
+
+      function formatRupees(num) {
+        return "₹" + Number(num).toLocaleString("en-IN");
+      }
+
+      function updateCalculation() {
+        const tier = TIERS[state.tierId];
+        if (!tier) return;
+
+        if (selectTier) selectTier.value = state.tierId;
+        if (qtyVal) qtyVal.textContent = state.quantity;
+
+        if (unitDescText) {
+          if (state.tierId === "couple") {
+            unitDescText.textContent = state.quantity === 1 ? "1 Couple (2 Souls)" : `${state.quantity} Couples (${state.quantity * 2} Souls)`;
+          } else {
+            unitDescText.textContent = `${state.quantity} ${state.quantity === 1 ? "Person" : "People"}`;
+          }
+        }
+
+        if (btnDec) btnDec.disabled = state.quantity <= 1;
+        if (btnInc) btnInc.disabled = state.quantity >= tier.maxQty;
+
+        const totalAmount = tier.price * state.quantity;
+        if (totalAmountDisplay) totalAmountDisplay.textContent = formatRupees(totalAmount);
+      }
+
+      if (selectTier) {
+        selectTier.value = state.tierId;
+        selectTier.addEventListener("change", (e) => {
+          const tid = e.target.value;
+          if (tid && TIERS[tid]) {
+            state.tierId = tid;
+            const tier = TIERS[tid];
+            if (state.quantity > tier.maxQty) state.quantity = tier.maxQty;
+            updateCalculation();
+          }
+        });
+      }
+
+      if (btnDec) {
+        btnDec.addEventListener("click", () => {
+          if (state.quantity > 1) {
+            state.quantity--;
+            updateCalculation();
+          }
+        });
+      }
+
+      if (btnInc) {
+        btnInc.addEventListener("click", () => {
+          const tier = TIERS[state.tierId];
+          if (state.quantity < tier.maxQty) {
+            state.quantity++;
+            updateCalculation();
+          }
+        });
+      }
+
+      updateCalculation();
+
+      // Form validation helpers
+      function validateInput(input, errEl, checkFn, msg) {
+        const val = input.value.trim();
+        const isValid = checkFn(val);
+        if (!isValid) {
+          input.classList.add("is-invalid");
+          if (errEl) {
+            errEl.textContent = msg;
+            errEl.style.display = "block";
+          }
+          return false;
+        } else {
+          input.classList.remove("is-invalid");
+          if (errEl) errEl.style.display = "none";
+          return true;
+        }
+      }
+
+      inputName.addEventListener("input", () => {
+        validateInput(inputName, document.getElementById("errName"), v => v.length >= 2, "Full Name is required.");
+      });
+      inputPhone.addEventListener("input", () => {
+        const clean = inputPhone.value.replace(/\D/g, "");
+        validateInput(inputPhone, document.getElementById("errPhone"), () => clean.length === 10, "Enter a valid 10-digit WhatsApp number.");
+      });
+      inputEmail.addEventListener("input", () => {
+        validateInput(inputEmail, document.getElementById("errEmail"), v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), "Enter a valid email address.");
+      });
+      inputInsta.addEventListener("input", () => {
+        validateInput(inputInsta, document.getElementById("errInsta"), v => v.length >= 2, "Instagram username is required.");
+      });
+
+      // Submit Handler
+      bookingForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorBanner.style.display = "none";
+
+        const isNameValid = validateInput(inputName, document.getElementById("errName"), v => v.length >= 2, "Full Name is required.");
+        const isPhoneValid = validateInput(inputPhone, document.getElementById("errPhone"), () => inputPhone.value.replace(/\D/g, "").length === 10, "Enter a valid 10-digit WhatsApp number.");
+        const isEmailValid = validateInput(inputEmail, document.getElementById("errEmail"), v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), "Enter a valid email address.");
+        const isInstaValid = validateInput(inputInsta, document.getElementById("errInsta"), v => v.length >= 2, "Instagram username is required.");
+
+        if (!isNameValid || !isPhoneValid || !isEmailValid || !isInstaValid) {
+          errorBannerMsg.textContent = "Please provide all required details accurately.";
+          errorBanner.style.display = "flex";
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.querySelector("span").textContent = "SUBMITTING DETAILS...";
+
+        const payload = {
+          name: inputName.value.trim(),
+          phone: inputPhone.value.trim(),
+          email: inputEmail.value.trim(),
+          instagram: inputInsta.value.trim(),
+          costume: inputCostume.value.trim(),
+          tierId: state.tierId,
+          quantity: state.quantity
+        };
+
+        let resultBooking = null;
+        let whatsappNumber = "+919999999999";
+
+        try {
+          const res = await fetch("/api/bookings", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success && data.booking) {
+            resultBooking = data.booking;
+            if (data.whatsappNumber) whatsappNumber = data.whatsappNumber;
+          } else {
+            const errs = data.errors || [data.error || "Submission failed."];
+            errorBannerMsg.textContent = errs.join(" ");
+            errorBanner.style.display = "flex";
+            submitBtn.disabled = false;
+            submitBtn.querySelector("span").textContent = "SUBMIT DETAILS →";
+            return;
+          }
+        } catch (err) {
+          console.warn("API request failed, fallback to local generation:", err);
+          const tier = TIERS[state.tierId];
+          const fallbackId = `WK-${Math.random().toString(36).substring(2, 10).toUpperCase()}`;
+          resultBooking = {
+            id: fallbackId,
+            name: payload.name,
+            phone: payload.phone,
+            email: payload.email,
+            instagram: payload.instagram,
+            costume: payload.costume || "N/A",
+            tierId: state.tierId,
+            tierName: tier.name,
+            quantity: state.quantity,
+            totalAmount: tier.price * state.quantity,
+            status: "Pending Payment"
+          };
+        }
+
+        // Lock form inputs after successful submission
+        inputName.disabled = true;
+        inputPhone.disabled = true;
+        inputEmail.disabled = true;
+        inputInsta.disabled = true;
+        inputCostume.disabled = true;
+        if (selectTier) selectTier.disabled = true;
+        if (btnDec) btnDec.disabled = true;
+        if (btnInc) btnInc.disabled = true;
+        submitBtn.disabled = true;
+        submitBtn.querySelector("span").textContent = "✓ DETAILS SUBMITTED";
+        submitBtn.style.background = "#143314";
+        submitBtn.style.borderColor = "#25D366";
+        submitBtn.style.color = "#25D366";
+
+        // Populate Payment Details Section
+        displayBookingId.textContent = resultBooking.id;
+        displayName.textContent = resultBooking.name;
+        displayTier.textContent = resultBooking.tierName;
+        displayQty.textContent = `${resultBooking.quantity} ${resultBooking.quantity > 1 ? "passes" : "pass"}`;
+        displayPhoneNum.textContent = whatsappNumber;
+        displayTotal.textContent = formatRupees(resultBooking.totalAmount);
+
+        // Build exact requested WhatsApp prefilled message
+        const waPrefilledMessage =
+          `Hey Wicked Team! 👻\n\n` +
+          `I want to confirm my Halloween party booking.\n\n` +
+          `Name: ${resultBooking.name}\n` +
+          `Booking ID: ${resultBooking.id}\n` +
+          `Pass: ${resultBooking.tierName}\n` +
+          `Quantity: ${resultBooking.quantity}\n` +
+          `Total: ${formatRupees(resultBooking.totalAmount)}\n\n` +
+          `Please share the payment details so I can confirm my pass.`;
+
+        const waUrl = `https://wa.me/${whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(waPrefilledMessage)}`;
+        waPayLink.href = waUrl;
+
+        // Show Payment Section with smooth animation
+        bookingGrid.classList.add("has-submitted");
+        paymentSection.classList.add("is-visible");
+
+        // Scroll to payment section on mobile
+        if (window.innerWidth <= 900) {
+          setTimeout(() => {
+            paymentSection.scrollIntoView({ behavior: "smooth" });
+          }, 200);
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

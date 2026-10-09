@@ -129,7 +129,7 @@
           <li><a href="#rooms" data-scroll>ROOMS</a></li>
           <li><a href="#details" data-scroll>VENUE</a></li>
           <li><a href="#passes" data-scroll>PASSES</a></li>
-          <li><a href="#passes" data-scroll style="color: var(--bone); font-weight: 700;">GET YOUR PASS &rarr;</a></li>
+          <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" style="color: var(--bone); font-weight: 700;">BOOK YOUR PASS &rarr;</a></li>
         </ul>
       </nav>
       <div class="nav-divider" style="width: 1px; height: 18px; background: rgba(255,255,255,0.2);"></div>
@@ -181,7 +181,7 @@
         <li><a href="#passes" data-scroll><span class="link-num">05</span><span>PASSES &amp; ADMISSION</span></a></li>
       </ul>
       <div class="mobile-nav-cta-wrap">
-        <a href="#passes" class="btn btn--blood btn--full mobile-nav-cta" data-scroll>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn--blood btn--full mobile-nav-cta">
           <span>GET YOUR PASS &rarr;</span>
         </a>
       </div>
@@ -258,7 +258,7 @@
             <p class="hero-date"
               style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: 0.08em; color: #ffffff; text-shadow: 0 0 15px rgba(255, 42, 42, 0.8), 0 4px 12px rgba(0,0,0,0.9); margin-bottom: 0.2rem;">
               30 OCTOBER 2026</p>
-
+            <p class="hero-venue">CHATTARPUR, SOUTH DELHI</p>
             <a href="#passes" class="btn btn--outline hero-cta-btn" data-scroll>GET YOUR PASS &rarr;</a>
           </div>
         </div>
@@ -331,8 +331,8 @@
               <span class="stone-label"><svg class="icon">
                   <use href="#i-entry-door" />
                 </svg>Where</span>
-              <h3>Secret Location</h3>
-              <p>Follow the jack-o'-lanterns up the road. Ignore the whispering.</p>
+              <h3>Chattarpur</h3>
+              <p>South Delhi. Follow the jack-o'-lanterns up the road. Ignore the whispering.</p>
             </div>
           </article>
           <div class="plot-ground"></div>
@@ -573,7 +573,9 @@
             <li><span class="perk-icon">✦</span> Full Access to Event</li>
             <li><span class="perk-icon">✦</span> Costume Mandatory</li>
           </ul>
-          <button type="button" class="btn pass-select-btn" data-select-tier="male_stag">Select Male Stag</button>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn--blood btn--full pass-buy-btn" style="margin-top: 1.5rem; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span>GET YOUR PASS &rarr;</span>
+          </a>
         </div>
 
         <!-- TIER 2 -->
@@ -592,7 +594,9 @@
             <li><span class="perk-icon">✦</span> Full Access to Event</li>
             <li><span class="perk-icon">✦</span> Costume Mandatory</li>
           </ul>
-          <button type="button" class="btn pass-select-btn" data-select-tier="female_stag">Select Female Stag</button>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn--blood btn--full pass-buy-btn" style="margin-top: 1.5rem; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span>GET YOUR PASS &rarr;</span>
+          </a>
         </div>
 
         <!-- TIER 3 -->
@@ -612,144 +616,13 @@
             <li><span class="perk-icon">✦</span> Priority Express Couple Gate Access</li>
             <li><span class="perk-icon">✦</span> Full Access to Event</li>
           </ul>
-          <button type="button" class="btn pass-select-btn" data-select-tier="couple">Select Couple Pass</button>
-        </div>
-      </div>
-
-      <!-- Interactive Calculator & Booking Matrix -->
-      <div class="booking-matrix" id="bookingMatrix">
-        <!-- LEFT: Pass Calculator Engine -->
-        <div class="panel calc-panel">
-          <p class="panel-kicker">STEP 1 · SELECT SOULS &amp; QUANTITY</p>
-
-          <div class="calc-selected-header">
-            <div>
-              <span class="calc-tier-type">SELECTED PASS TIER</span>
-              <h3 class="calc-tier-name" id="calcTierName">Couple</h3>
-            </div>
-            <span class="calc-tier-badge" id="calcTierBadge">POPULAR CHOICE</span>
-          </div>
-
-          <!-- Quantity Stepper -->
-          <div class="calc-counter-wrap">
-            <p class="calc-label">ATTENDEE COUNT</p>
-            <div class="calc-counter">
-              <button type="button" class="calc-btn calc-dec" id="calcDec" aria-label="Decrease quantity">−</button>
-              <span class="calc-qty" id="calcQty" aria-live="polite">1</span>
-              <button type="button" class="calc-btn calc-inc" id="calcInc" aria-label="Increase quantity">+</button>
-              <span class="calc-unit" id="calcUnit">COUPLE (2 SOULS)</span>
-            </div>
-          </div>
-
-          <!-- Breakdown & Group Discount Alerts -->
-          <div class="calc-breakdown">
-            <div class="breakdown-row">
-              <span class="eyebrow" id="rateTypeLabel">RATE PER COUPLE</span>
-              <span class="breakdown-price" id="calcRateEach">₹3,599</span>
-            </div>
-
-            <div class="discount-alert" id="calcDiscountAlert" hidden>
-              <span class="alert-icon">✦</span>
-              <span class="alert-text" id="calcDiscountText">GROUP DISCOUNT UNLOCKED — YOU SAVE ₹800!</span>
-            </div>
-
-            <div class="breakdown-row breakdown-total">
-              <div>
-                <span class="eyebrow">TOTAL AMOUNT</span>
-                <span class="breakdown-sub" id="calcBreakdownFormula">1 couple × ₹3,599</span>
-              </div>
-              <div class="total-amount" id="calcTotalAmount">₹3,599</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- RIGHT: Registration & Booking Details -->
-        <div class="panel form-panel">
-          <p class="panel-kicker">STEP 2 · MORTAL REGISTRATION &amp; ENTRY</p>
-
-          <form class="rsvp-form" id="bookingForm" novalidate>
-            <label class="field">
-              <span>Your Name (or Costume Alter-Ego) *</span>
-              <input type="text" name="name" id="guestName" required maxlength="40" placeholder="e.g. Vladislav / Kabir"
-                autocomplete="off" />
-            </label>
-
-            <div class="form-row">
-              <label class="field">
-                <span>WhatsApp Number (+91) *</span>
-                <input type="tel" name="phone" id="guestPhone" required placeholder="9876543210" autocomplete="tel" />
-              </label>
-              <label class="field">
-                <span>Email Address *</span>
-                <input type="email" name="email" id="guestEmail" required placeholder="mortal@ashes.com"
-                  autocomplete="email" />
-              </label>
-            </div>
-
-            <div class="form-row">
-              <label class="field">
-                <span>Instagram Handle *</span>
-                <input type="text" name="instagram" id="guestInsta" placeholder="@hollow_soul" autocomplete="off"
-                  required />
-              </label>
-              <label class="field">
-                <span>Costume Theme / Concept</span>
-                <input type="text" name="costume" id="guestCostume" placeholder="e.g. Blood Countess / Necromancer"
-                  autocomplete="off" />
-              </label>
-            </div>
-
-            <!-- Primary CTAs -->
-            <div class="booking-actions">
-              <div class="quick-pay-row" style="margin-top: 1rem;">
-                <button type="button" class="btn btn--blood btn--full" id="whatsappPayBtn"
-                  style="justify-content: center; width: 100%;">
-                  <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path
-                      d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.81 13.47 3.81 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" />
-                  </svg>
-                  <span>DM ON WHATSAPP FOR PASS</span>
-                </button>
-
-                <button type="button" class="btn btn--ghost" id="upiModalBtn">
-                  <span>PAY VIA UPI / QR CODE</span>
-                </button>
-              </div>
-            </div>
-
-            <p class="form-note">✦ Official Digital Pass generated instantly · QR scanned at gate ingress · 18+ strictly
-            </p>
-            <p class="form-error" id="formError" role="alert" hidden>Please provide your name and WhatsApp contact
-              number.</p>
-          </form>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn--blood btn--full pass-buy-btn" style="margin-top: 1.5rem; text-decoration: none; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span>GET YOUR PASS &rarr;</span>
+          </a>
         </div>
       </div>
 
 
-
-      <!-- UPI QR Modal -->
-      <div class="modal" id="upiModal" hidden>
-        <div class="modal-backdrop" id="upiModalBackdrop"></div>
-        <div class="modal-content upi-modal-content">
-          <button type="button" class="modal-close-btn" id="upiModalCloseBtn">&times;</button>
-          <p class="eyebrow text-blood">DIRECT UPI PAYMENT · WICKED</p>
-          <h3 class="modal-title">Scan to Pay via UPI</h3>
-          <div class="upi-qr-card">
-            <svg viewBox="0 0 160 160" class="upi-qr-code">
-              <rect width="160" height="160" fill="#f2f0ec" />
-              <path
-                d="M16,16 h40 v40 h-40 z M24,24 h24 v24 h-24 z M104,16 h40 v40 h-40 z M112,24 h24 v24 h-24 z M16,104 h40 v40 h-40 z M24,112 h24 v24 h-24 z M68,24 h12 v12 h-12 z M68,48 h12 v12 h-12 z M24,68 h12 v12 h-12 z M48,68 h12 v12 h-12 z M68,68 h24 v24 h-24 z M104,68 h12 v12 h-12 z M128,68 h12 v12 h-12 z M68,104 h12 v24 h-12 z M92,104 h24 v12 h-24 z M128,104 h16 v16 h-16 z M92,128 h12 v16 h-12 z M116,128 h28 v16 h-28 z"
-                fill="#050505" />
-            </svg>
-            <p class="upi-id-badge">UPI ID: <strong id="upiIdText">hollowhill@upi</strong></p>
-            <button type="button" class="btn btn--small" id="copyUpiBtn">Copy UPI ID</button>
-            <span class="upi-copy-msg" id="upiCopyMsg" hidden>✓ Copied to clipboard!</span>
-          </div>
-          <p class="modal-note">Accepts GPay, PhonePe, Paytm &amp; all UPI apps. DM screenshot on WhatsApp for instant
-            confirmation.</p>
-        </div>
-      </div>
 
       <div class="faq">
         <h3 class="faq-title">Frequently Asked Haunting Questions</h3>
@@ -757,7 +630,8 @@
           <button class="faq-q" aria-expanded="false">When and where is WICKED happening? <span
               aria-hidden="true">+</span></button>
           <div class="faq-a">
-            <p>WICKED is happening on <strong>30th October</strong>, starting at <strong>4:30 PM</strong>. Get ready for a night to remember!</p>
+            <p>WICKED is happening on <strong>30th October in Chattarpur, Delhi</strong>, starting at <strong>4:30
+                PM</strong>. Get ready for a night to remember!</p>
           </div>
         </div>
         <div class="faq-item">
@@ -819,10 +693,11 @@
       </svg>
       <p class="kicker">Until the 30th…</p>
       <h2 class="finale-title">See you on the other side</h2>
-      <p class="finale-meta">Fri 30 Oct 2026 · 4:30 PM</p>
-      <a class="btn" href="#passes" data-scroll>GET PASS BEFORE IT'S TOO LATE</a>
+      <p class="finale-meta">Fri 30 Oct 2026 ·4:30pm· Chattarpur, South Delhi</p>
     </div>
-    <p class="fineprint">WICKED 2026</p>
+    <p class="fineprint">
+      WICKED 2026
+    </p>
   </footer>
 
   <!-- Floating Mobile Bar like FERAL -->
@@ -831,10 +706,10 @@
       <span class="mobile-pulse"></span>
       <div>
         <strong>30 OCT 2026</strong>
-        <span>WICKED</span>
+        <span>CHATTARPUR</span>
       </div>
     </div>
-    <a href="#passes" class="btn btn--small mobile-pass-cta" data-scroll>GET PASS ➔</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeXS6mU0rY-cD9t0apjZM64JMEDByA7uD5p3L_xqXxXEoZ9Dg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn--small mobile-pass-cta">GET PASS ➔</a>
   </div>
 
   <!-- Ambient Sound Toggle Button like FERAL (Generative Web Audio API drone) -->
