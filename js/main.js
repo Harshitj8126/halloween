@@ -87,26 +87,50 @@
   }
 
   function smoothScrollTo(target, offsetY = 0) {
-    gsap.to(window, {
-      scrollTo: { y: target, offsetY, autoKill: false },
-      duration: dur(1.5),
-      ease: "power3.inOut",
-    });
+    if (typeof target === "number") {
+      if (window.gsap && window.ScrollToPlugin) {
+        gsap.to(window, {
+          scrollTo: { y: target, autoKill: false },
+          duration: dur(1.2),
+          ease: "power3.inOut",
+        });
+      } else {
+        window.scrollTo({ top: target, behavior: "smooth" });
+      }
+      return;
+    }
+
+    const el = typeof target === "string" ? $(target) : target;
+    if (!el) return;
+
+    try {
+      gsap.to(window, {
+        scrollTo: { y: el, offsetY, autoKill: false },
+        duration: dur(1.2),
+        ease: "power3.inOut",
+      });
+    } catch (_) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   function initNavLinks() {
     $$("[data-scroll]").forEach((link) => {
-      link.addEventListener("click", (e) => {
+      const scrollHandler = (e) => {
         const hash = link.getAttribute("href");
         if (!hash || !hash.startsWith("#")) return;
-        e.preventDefault();
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
         if (hash === "#top") return smoothScrollTo(0);
         const el = $(hash);
         if (!el) return;
-        // a pinned section is wrapped in a pin-spacer; that wrapper holds its real scroll position
-        const target = el.parentElement.classList.contains("pin-spacer") ? el.parentElement : el;
+        const target = (el.parentElement && el.parentElement.classList.contains("pin-spacer")) ? el.parentElement : el;
         smoothScrollTo(target);
-      });
+      };
+
+      link.addEventListener("click", scrollHandler);
     });
   }
 

@@ -824,12 +824,24 @@ button {
 }
 
 .hero-title {
-  z-index: 8;
+  z-index: 10;
   top: 19vh;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   text-align: center;
+  pointer-events: auto;
+}
+
+.hero-details {
+  pointer-events: auto;
+}
+
+.hero-cta-btn {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 12;
+  cursor: pointer;
 }
 
 .eyebrow {
