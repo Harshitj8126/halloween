@@ -567,7 +567,7 @@ button {
 }
 
 .mobile-nav-cta-wrap {
-  margin-bottom: 16px;
+  margin-bottom: auto;
 }
 
 .mobile-nav-cta {
@@ -578,30 +578,7 @@ button {
   justify-content: center;
 }
 
-.mobile-nav-quiz {
-  margin-bottom: auto;
-  padding-top: 10px;
-}
 
-.mobile-quiz-btn {
-  width: 100%;
-  padding: 12px 14px;
-  background: rgba(30, 16, 40, 0.5);
-  border: 1px dashed rgba(201, 161, 91, 0.35);
-  border-radius: 8px;
-  color: var(--bone);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: .08em;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-
-.mobile-quiz-btn:hover {
-  border-color: var(--gold);
-  background: rgba(45, 22, 60, 0.7);
-}
 
 .mobile-nav-footer {
   margin-top: 24px;
@@ -2101,28 +2078,7 @@ button {
   display: none;
 }
 
-.quiz-trigger-box {
-  margin-top: 28px;
-  padding: 18px 20px;
-  border: 1px solid rgba(242, 240, 236, 0.1);
-  background: rgba(20, 16, 18, 0.6);
-}
 
-.quiz-trigger-tag {
-  font-size: .68rem;
-  font-weight: 700;
-  letter-spacing: .24em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 4px;
-}
-
-.quiz-trigger-text {
-  font-size: .84rem;
-  color: rgba(242, 240, 236, 0.7);
-  margin-bottom: 12px;
-  line-height: 1.45;
-}
 
 /* Registration Form */
 .form-row {
@@ -2431,7 +2387,7 @@ button {
 }
 
 /* =========================================================
-   MODALS: UPI & GHOUL QUIZ
+   MODALS: UPI
    ========================================================= */
 .modal {
   position: fixed;
@@ -2466,145 +2422,7 @@ button {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(158, 15, 24, 0.25);
 }
 
-.quiz-modal-content {
-  max-width: 580px;
-  text-align: left;
-}
 
-/* Ghoul Quiz Modal Styles */
-.quiz-steps {
-  position: relative;
-  min-height: 240px;
-}
-
-.quiz-q {
-  border: none;
-  padding: 0;
-  margin: 0;
-  display: none;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.quiz-q.is-active {
-  display: flex;
-}
-
-.quiz-q legend {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-  color: var(--bone);
-  margin-bottom: 16px;
-  display: block;
-  float: left;
-  width: 100%;
-}
-
-.quiz-q button {
-  width: 100%;
-  padding: 13px 18px;
-  background: rgba(242, 240, 236, 0.05);
-  border: 1px solid rgba(242, 240, 236, 0.15);
-  border-radius: 6px;
-  color: var(--bone);
-  font-size: 0.95rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.quiz-q button:hover,
-.quiz-q button:active {
-  background: rgba(158, 15, 24, 0.25);
-  border-color: var(--blood-bright);
-  color: #fff;
-  transform: translateX(4px);
-}
-
-.quiz-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 24px;
-}
-
-.quiz-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(242, 240, 236, 0.2);
-  transition: all 0.3s;
-}
-
-.quiz-dots span.is-active {
-  background: var(--blood-bright);
-  box-shadow: 0 0 10px var(--blood-bright);
-  transform: scale(1.25);
-}
-
-.quiz-result {
-  text-align: center;
-  padding: 20px 10px;
-}
-
-.quiz-result[hidden] {
-  display: none;
-}
-
-.quiz-result-icon {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 14px;
-  color: var(--pumpkin);
-  filter: drop-shadow(0 0 16px rgba(255, 59, 32, 0.4));
-}
-
-.quiz-result-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.quiz-result-name {
-  font-family: var(--font-display);
-  font-size: 2.8rem;
-  line-height: 1;
-  text-transform: uppercase;
-  color: var(--bone);
-  margin: 6px 0 12px;
-}
-
-.quiz-result-desc {
-  font-family: var(--font-serif);
-  font-size: 1.15rem;
-  line-height: 1.4;
-  color: var(--mist);
-  max-width: 420px;
-  margin: 0 auto 20px;
-}
-
-.quiz-retake {
-  background: none;
-  border: 1px solid rgba(242, 240, 236, 0.2);
-  padding: 8px 18px;
-  border-radius: 4px;
-  color: var(--bone);
-  font-size: 0.85rem;
-  letter-spacing: .1em;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.quiz-retake:hover {
-  border-color: var(--blood);
-  color: var(--blood-bright);
-}
 
 .modal-close-btn {
   position: absolute;
@@ -3788,8 +3606,7 @@ button {
     animation: none;
   }
 
-  .btn,
-  .quiz-q button {
+  .btn {
     transition: none;
   }
 }

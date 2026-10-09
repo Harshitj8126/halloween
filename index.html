@@ -185,11 +185,6 @@
           <span>GET YOUR PASS &rarr;</span>
         </a>
       </div>
-      <div class="mobile-nav-quiz">
-        <button type="button" class="mobile-quiz-btn" id="mobileQuizBtn">
-          <span>🎃 Need costume ideas? Take Ghoul Quiz</span>
-        </button>
-      </div>
       <div class="mobile-nav-footer">
         <div class="mobile-nav-socials">
           <a href="https://www.instagram.com/onelife.eventss" target="_blank" rel="noopener noreferrer"
@@ -667,13 +662,6 @@
             </div>
           </div>
 
-          <div class="quiz-trigger-box">
-            <span class="quiz-trigger-tag">Costume Indecision?</span>
-            <p class="quiz-trigger-text">Not sure which creature of the night to summon? Unveil your darkness.</p>
-            <button type="button" class="btn btn--outline btn--small" id="openQuizBtn">Take the Ghoul Quiz
-              &rarr;</button>
-          </div>
-
         </div>
 
         <!-- RIGHT: Registration & Booking Details -->
@@ -740,50 +728,6 @@
 
 
 
-      <!-- Ghoul Quiz Modal -->
-      <div class="modal" id="quizModal" hidden>
-        <div class="modal-backdrop" id="quizModalBackdrop"></div>
-        <div class="modal-content quiz-modal-content">
-          <button type="button" class="modal-close-btn" id="quizModalCloseBtn">&times;</button>
-          <div class="panel quiz" style="border:none;background:none;padding:0;">
-            <p class="panel-kicker">DISCOVER YOUR INNER GHOUL</p>
-            <div class="quiz-steps">
-              <fieldset class="quiz-q is-active">
-                <legend>Your ideal Friday night?</legend>
-                <button type="button" data-ghoul="vampire">Brooding in a candlelit castle</button>
-                <button type="button" data-ghoul="witch">Brewing something questionable</button>
-                <button type="button" data-ghoul="ghost">Floating around, eavesdropping</button>
-                <button type="button" data-ghoul="werewolf">Running wild under the full moon</button>
-              </fieldset>
-              <fieldset class="quiz-q">
-                <legend>Pick a party snack.</legend>
-                <button type="button" data-ghoul="vampire">Blood-orange slices</button>
-                <button type="button" data-ghoul="witch">Eye-of-newt crisps</button>
-                <button type="button" data-ghoul="ghost">Nothing. I'm see-through.</button>
-                <button type="button" data-ghoul="werewolf">A very rare steak</button>
-              </fieldset>
-              <fieldset class="quiz-q">
-                <legend>Your signature dance move?</legend>
-                <button type="button" data-ghoul="vampire">The slow, sinister waltz</button>
-                <button type="button" data-ghoul="witch">Stirring the cauldron</button>
-                <button type="button" data-ghoul="ghost">The vanishing act</button>
-                <button type="button" data-ghoul="werewolf">Howl and headbang</button>
-              </fieldset>
-              <div class="quiz-result" hidden>
-                <svg class="quiz-result-icon icon" aria-hidden="true">
-                  <use href="#i-ghost" />
-                </svg>
-                <p class="quiz-result-label">You are a…</p>
-                <p class="quiz-result-name"></p>
-                <p class="quiz-result-desc"></p>
-                <button type="button" class="link-btn quiz-retake">Retake the quiz</button>
-              </div>
-            </div>
-            <div class="quiz-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-          </div>
-        </div>
-      </div>
-
       <!-- UPI QR Modal -->
       <div class="modal" id="upiModal" hidden>
         <div class="modal-backdrop" id="upiModalBackdrop"></div>
@@ -808,30 +752,35 @@
       </div>
 
       <div class="faq">
-        <h3 class="faq-title">Frequently Asked Hauntings</h3>
+        <h3 class="faq-title">Frequently Asked Haunting Questions</h3>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Is it actually scary? <span aria-hidden="true">+</span></button>
+          <button class="faq-q" aria-expanded="false">When and where is WICKED happening? <span aria-hidden="true">+</span></button>
           <div class="faq-a">
-            <p>Fun-scary, not therapy-scary. Nothing too frightening, just good Halloween fun.</p>
+            <p>WICKED is happening on <strong>30th October in Chattarpur, Delhi</strong>, starting at <strong>4:30 PM</strong>. Get ready for a night to remember!</p>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Can I bring a plus-one? <span aria-hidden="true">+</span></button>
+          <button class="faq-q" aria-expanded="false">Is unlimited alcohol and food included? <span aria-hidden="true">+</span></button>
           <div class="faq-a">
-            <p>Up to three, as long as they're in costume. Covens welcome, poltergeists by arrangement.</p>
+            <p>Yes! Enjoy <strong>unlimited alcohol and food</strong> while you party all evening. Alcohol service is subject to legal age requirements.</p>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">Are there zero-proof potions? <span
-              aria-hidden="true">+</span></button>
+          <button class="faq-q" aria-expanded="false">Is there a Halloween dress code? <span aria-hidden="true">+</span></button>
           <div class="faq-a">
-            <p>Plenty. The Ecto-Cooler glows a little, and the hot cider is good enough to wake the dead.</p>
+            <p>Halloween costumes are highly encouraged! Come spooky, stylish, or downright wicked.</p>
           </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" aria-expanded="false">How do I get home? <span aria-hidden="true">+</span></button>
+          <button class="faq-q" aria-expanded="false">How can I book my passes? <span aria-hidden="true">+</span></button>
           <div class="faq-a">
-            <p>A shuttle hearse runs to Ashgrove station every 30 minutes from midnight. Last departure: 2:13 am.</p>
+            <p>Passes will be available through our official booking link. Limited spots, so grab yours before they're gone!</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">What can I expect at WICKED? <span aria-hidden="true">+</span></button>
+          <div class="faq-a">
+            <p>Expect a crazy DJ, unlimited food and drinks, Halloween vibes, and a party you won't forget! 💀</p>
           </div>
         </div>
       </div>
@@ -866,13 +815,7 @@
       <p class="finale-meta">Fri 30 Oct 2026 · 8pm · Chattarpur, South Delhi</p>
       <a class="btn" href="#passes" data-scroll>GET PASS BEFORE IT'S TOO LATE</a>
     </div>
-    <p class="fineprint">
-      A dark immersive Halloween experience. Built with GSAP &amp; ScrollTrigger.
-      Photography from <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a> (see CREDITS.md).
-      Icons by Lorc, Delapouite &amp; contributors from <a href="https://game-icons.net" target="_blank"
-        rel="noopener">game-icons.net</a>,
-      <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener">CC BY 3.0</a>.
-    </p>
+    <p class="fineprint">WICKED 2026</p>
   </footer>
 
   <!-- Floating Mobile Bar like FERAL -->
@@ -905,7 +848,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollToPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 
 </html>

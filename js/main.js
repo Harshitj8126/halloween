@@ -115,8 +115,6 @@
     const drawer = $("#mobileNavDrawer");
     const closeBtn = $("#mobileNavClose");
     const backdrop = $("#mobileNavBackdrop");
-    const quizBtn = $("#mobileQuizBtn");
-    const quizModal = $("#quizModal");
 
     if (!toggle || !drawer) return;
 
@@ -155,16 +153,6 @@
       });
     });
 
-    // Quiz trigger from mobile drawer
-    if (quizBtn && quizModal) {
-      quizBtn.addEventListener("click", () => {
-        closeDrawer();
-        setTimeout(() => {
-          quizModal.hidden = false;
-        }, 320);
-      });
-    }
-
     // Close on Escape key
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && drawer.classList.contains("is-open")) {
@@ -189,74 +177,7 @@
     });
   }
 
-  const GHOULS = {
-    vampire: { name: "Vampire", icon: "vampire-dracula", desc: "Elegant, nocturnal, suspiciously pale. You'll own the ballroom by midnight." },
-    witch: { name: "Witch", icon: "witch-face", desc: "You'll be in the Potion Lab improving every recipe. Bring your own broom." },
-    ghost: { name: "Ghost", icon: "ghost", desc: "Quietly everywhere at once. Nobody will see you leave, because nobody saw you arrive." },
-    werewolf: { name: "Werewolf", icon: "werewolf", desc: "Pure chaos on the dance floor. The Monster Mash was written for you." },
-  };
-  const state = { answers: [], ghoul: null };
 
-  function initQuiz() {
-    const quiz = $(".quiz");
-    const questions = $$(".quiz-q", quiz);
-    const result = $(".quiz-result", quiz);
-    const dots = $$(".quiz-dots span", quiz);
-
-    function swap(from, to, onSwap) {
-      gsap.to(from, {
-        autoAlpha: 0,
-        x: -30,
-        duration: dur(0.25),
-        ease: "power2.in",
-        onComplete() {
-          from.classList.remove("is-active");
-          from.hidden = from === result;
-          gsap.set(from, { clearProps: "opacity,visibility,transform" });
-          onSwap && onSwap();
-          if (to === result) to.hidden = false;
-          else to.classList.add("is-active");
-          gsap.fromTo(to, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: dur(0.4), ease: "power3.out" });
-        },
-      });
-    }
-
-    function showResult() {
-      const tally = {};
-      state.answers.forEach((g) => (tally[g] = (tally[g] || 0) + 1));
-      const best = GHOULS[Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0]];
-      state.ghoul = best.name;
-      $(".quiz-result-icon use", quiz).setAttribute("href", `#i-${best.icon}`);
-      $(".quiz-result-name", quiz).textContent = best.name;
-      $(".quiz-result-desc", quiz).textContent = best.desc;
-    }
-
-    questions.forEach((q, qi) => {
-      $$("button", q).forEach((btn) => {
-        btn.addEventListener("click", () => {
-          state.answers[qi] = btn.dataset.ghoul;
-          dots[qi].classList.add("is-done");
-          if (qi < questions.length - 1) {
-            swap(q, questions[qi + 1]);
-          } else {
-            showResult();
-            swap(q, result, () => {
-              gsap.fromTo([$(".quiz-result-icon", quiz), $(".quiz-result-name", quiz)],
-                { scale: 0.4, rotation: -10 },
-                { scale: 1, rotation: 0, duration: dur(0.8), stagger: 0.08, ease: "elastic.out(1, 0.45)", delay: dur(0.1) });
-            });
-          }
-        });
-      });
-    });
-
-    $(".quiz-retake", quiz).addEventListener("click", () => {
-      state.answers = [];
-      state.ghoul = null;
-      dots.forEach((d) => d.classList.remove("is-done"));
-      swap(result, questions[0]);
-    });
-  }
 
   function saveRsvp(data) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (_) { /* storage blocked: ticket still shows */ }
@@ -522,14 +443,6 @@
       });
     }
 
-    const quizModal = $("#quizModal");
-    const quizOpenBtn = $("#openQuizBtn");
-    const quizCloseBtn = $("#quizModalCloseBtn");
-    const quizBackdrop = $("#quizModalBackdrop");
-
-    if (quizOpenBtn && quizModal) quizOpenBtn.addEventListener("click", () => (quizModal.hidden = false));
-    if (quizCloseBtn && quizModal) quizCloseBtn.addEventListener("click", () => (quizModal.hidden = true));
-    if (quizBackdrop && quizModal) quizBackdrop.addEventListener("click", () => (quizModal.hidden = true));
 
     const downloadBtn = $("#downloadPassBtn");
     if (downloadBtn) {
@@ -564,6 +477,16 @@
     const label = $("#soundLabel");
     if (!btn) return;
 
+    function createNoiseBuffer(ctx) {
+      const bufferSize = ctx.sampleRate * 5;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      return buffer;
+    }
+
     function startDrone() {
       if (!audioCtx) {
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -576,7 +499,7 @@
       }
 
       if (audioNodes) {
-        audioNodes.gain.gain.setTargetAtTime(0.08, audioCtx.currentTime, 0.5);
+        audioNodes.gain.gain.setTargetAtTime(0.18, audioCtx.currentTime, 0.5);
         isSoundPlaying = true;
         btn.classList.add("is-active");
         if (label) label.textContent = "SOUND ON";
@@ -584,48 +507,100 @@
       }
 
       const now = audioCtx.currentTime;
-      const osc1 = audioCtx.createOscillator();
-      const osc2 = audioCtx.createOscillator();
-      const oscSub = audioCtx.createOscillator();
-      const filter = audioCtx.createBiquadFilter();
-      const lfo = audioCtx.createOscillator();
-      const lfoGain = audioCtx.createGain();
+      const noiseBuffer = createNoiseBuffer(audioCtx);
+
+      // 1. Howling Wind Resonant Whistle
+      const noiseSource1 = audioCtx.createBufferSource();
+      noiseSource1.buffer = noiseBuffer;
+      noiseSource1.loop = true;
+
+      const windFilter = audioCtx.createBiquadFilter();
+      windFilter.type = "bandpass";
+      windFilter.frequency.setValueAtTime(450, now);
+      windFilter.Q.setValueAtTime(8, now);
+
+      const windLfo = audioCtx.createOscillator();
+      windLfo.type = "sine";
+      windLfo.frequency.setValueAtTime(0.12, now);
+
+      const windLfoGain = audioCtx.createGain();
+      windLfoGain.gain.setValueAtTime(320, now);
+      windLfo.connect(windLfoGain);
+      windLfoGain.connect(windFilter.frequency);
+
+      // 2. Ghostly Whisper Formant Resonance
+      const noiseSource2 = audioCtx.createBufferSource();
+      noiseSource2.buffer = noiseBuffer;
+      noiseSource2.loop = true;
+
+      const whisperFilter = audioCtx.createBiquadFilter();
+      whisperFilter.type = "bandpass";
+      whisperFilter.frequency.setValueAtTime(1100, now);
+      whisperFilter.Q.setValueAtTime(14, now);
+
+      const whisperLfo = audioCtx.createOscillator();
+      whisperLfo.type = "triangle";
+      whisperLfo.frequency.setValueAtTime(0.22, now);
+
+      const whisperLfoGain = audioCtx.createGain();
+      whisperLfoGain.gain.setValueAtTime(450, now);
+      whisperLfo.connect(whisperLfoGain);
+      whisperLfoGain.connect(whisperFilter.frequency);
+
+      const whisperGain = audioCtx.createGain();
+      whisperGain.gain.setValueAtTime(0.4, now);
+
+      // 3. Sub Pressure & Howling Pressure Wave
+      const subOsc = audioCtx.createOscillator();
+      subOsc.type = "sine";
+      subOsc.frequency.setValueAtTime(38, now);
+
+      const subLfo = audioCtx.createOscillator();
+      subLfo.type = "sine";
+      subLfo.frequency.setValueAtTime(0.07, now);
+      const subLfoGain = audioCtx.createGain();
+      subLfoGain.gain.setValueAtTime(8, now);
+      subLfo.connect(subLfoGain);
+      subLfoGain.connect(subOsc.frequency);
+
+      const subGain = audioCtx.createGain();
+      subGain.gain.setValueAtTime(0.6, now);
+
+      // Master Output Node
       const masterGain = audioCtx.createGain();
-
-      osc1.type = "sawtooth";
-      osc1.frequency.setValueAtTime(55, now);
-
-      osc2.type = "triangle";
-      osc2.frequency.setValueAtTime(55.4, now);
-
-      oscSub.type = "sine";
-      oscSub.frequency.setValueAtTime(27.5, now);
-
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(220, now);
-      filter.Q.setValueAtTime(3.5, now);
-
-      lfo.type = "sine";
-      lfo.frequency.setValueAtTime(0.08, now);
-      lfoGain.gain.setValueAtTime(140, now);
-      lfo.connect(lfoGain);
-      lfoGain.connect(filter.frequency);
-
       masterGain.gain.setValueAtTime(0.001, now);
-      masterGain.gain.exponentialRampToValueAtTime(0.08, now + 1.2);
+      masterGain.gain.exponentialRampToValueAtTime(0.18, now + 1.2);
 
-      osc1.connect(filter);
-      osc2.connect(filter);
-      oscSub.connect(filter);
-      filter.connect(masterGain);
+      // Connect Nodes
+      noiseSource1.connect(windFilter);
+      windFilter.connect(masterGain);
+
+      noiseSource2.connect(whisperFilter);
+      whisperFilter.connect(whisperGain);
+      whisperGain.connect(masterGain);
+
+      subOsc.connect(subGain);
+      subGain.connect(masterGain);
+
       masterGain.connect(audioCtx.destination);
 
-      osc1.start(now);
-      osc2.start(now);
-      oscSub.start(now);
-      lfo.start(now);
+      // Start Sources & LFOs
+      noiseSource1.start(now);
+      noiseSource2.start(now);
+      subOsc.start(now);
+      windLfo.start(now);
+      whisperLfo.start(now);
+      subLfo.start(now);
 
-      audioNodes = { osc1, osc2, oscSub, lfo, filter, gain: masterGain };
+      audioNodes = {
+        noiseSource1,
+        noiseSource2,
+        subOsc,
+        windLfo,
+        whisperLfo,
+        subLfo,
+        gain: masterGain,
+      };
       isSoundPlaying = true;
       btn.classList.add("is-active");
       if (label) label.textContent = "SOUND ON";
@@ -1202,7 +1177,7 @@
     initNavLinks();
     initMobileNav();
     initMobilePassBar();
-    initQuiz();
+
     initPasses();
     initSoundToggle();
     initTabTitle();
