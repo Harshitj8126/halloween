@@ -436,7 +436,7 @@
         const total = formatRupees(tier.price * bookingState.qty);
 
         const msg = encodeURIComponent(
-          `Hi Hollow Hill Manor! 🎃\nI want to book passes for Halloween 2026.\n✦ Pass: ${tier.name}\n✦ Attendees: ${souls} Souls\n✦ Total Amount: ${total}\n✦ Name: ${name}\n✦ Phone: ${phone}\n✦ Insta: ${insta}\nPlease share UPI / payment instructions to confirm!`
+          `Hi WICKED! 🎃\nI want to book passes for Halloween 2026.\n✦ Pass: ${tier.name}\n✦ Attendees: ${souls} Souls\n✦ Total Amount: ${total}\n✦ Name: ${name}\n✦ Phone: ${phone}\n✦ Insta: ${insta}\nPlease share UPI / payment instructions to confirm!`
         );
         window.open(`https://wa.me/919999999999?text=${msg}`, "_blank");
       });
