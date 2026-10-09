@@ -115,6 +115,8 @@
     const drawer = $("#mobileNavDrawer");
     const closeBtn = $("#mobileNavClose");
     const backdrop = $("#mobileNavBackdrop");
+    const quizBtn = $("#mobileQuizBtn");
+    const quizModal = $("#quizModal");
 
     if (!toggle || !drawer) return;
 
@@ -153,6 +155,16 @@
       });
     });
 
+    // Quiz trigger from mobile drawer
+    if (quizBtn && quizModal) {
+      quizBtn.addEventListener("click", () => {
+        closeDrawer();
+        setTimeout(() => {
+          quizModal.hidden = false;
+        }, 320);
+      });
+    }
+
     // Close on Escape key
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && drawer.classList.contains("is-open")) {
@@ -177,7 +189,74 @@
     });
   }
 
+  const GHOULS = {
+    vampire: { name: "Vampire", icon: "vampire-dracula", desc: "Elegant, nocturnal, suspiciously pale. You'll own the ballroom by midnight." },
+    witch: { name: "Witch", icon: "witch-face", desc: "You'll be in the Potion Lab improving every recipe. Bring your own broom." },
+    ghost: { name: "Ghost", icon: "ghost", desc: "Quietly everywhere at once. Nobody will see you leave, because nobody saw you arrive." },
+    werewolf: { name: "Werewolf", icon: "werewolf", desc: "Pure chaos on the dance floor. The Monster Mash was written for you." },
+  };
+  const state = { answers: [], ghoul: null };
 
+  function initQuiz() {
+    const quiz = $(".quiz");
+    const questions = $$(".quiz-q", quiz);
+    const result = $(".quiz-result", quiz);
+    const dots = $$(".quiz-dots span", quiz);
+
+    function swap(from, to, onSwap) {
+      gsap.to(from, {
+        autoAlpha: 0,
+        x: -30,
+        duration: dur(0.25),
+        ease: "power2.in",
+        onComplete() {
+          from.classList.remove("is-active");
+          from.hidden = from === result;
+          gsap.set(from, { clearProps: "opacity,visibility,transform" });
+          onSwap && onSwap();
+          if (to === result) to.hidden = false;
+          else to.classList.add("is-active");
+          gsap.fromTo(to, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: dur(0.4), ease: "power3.out" });
+        },
+      });
+    }
+
+    function showResult() {
+      const tally = {};
+      state.answers.forEach((g) => (tally[g] = (tally[g] || 0) + 1));
+      const best = GHOULS[Object.keys(tally).sort((a, b) => tally[b] - tally[a])[0]];
+      state.ghoul = best.name;
+      $(".quiz-result-icon use", quiz).setAttribute("href", `#i-${best.icon}`);
+      $(".quiz-result-name", quiz).textContent = best.name;
+      $(".quiz-result-desc", quiz).textContent = best.desc;
+    }
+
+    questions.forEach((q, qi) => {
+      $$("button", q).forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.answers[qi] = btn.dataset.ghoul;
+          dots[qi].classList.add("is-done");
+          if (qi < questions.length - 1) {
+            swap(q, questions[qi + 1]);
+          } else {
+            showResult();
+            swap(q, result, () => {
+              gsap.fromTo([$(".quiz-result-icon", quiz), $(".quiz-result-name", quiz)],
+                { scale: 0.4, rotation: -10 },
+                { scale: 1, rotation: 0, duration: dur(0.8), stagger: 0.08, ease: "elastic.out(1, 0.45)", delay: dur(0.1) });
+            });
+          }
+        });
+      });
+    });
+
+    $(".quiz-retake", quiz).addEventListener("click", () => {
+      state.answers = [];
+      state.ghoul = null;
+      dots.forEach((d) => d.classList.remove("is-done"));
+      swap(result, questions[0]);
+    });
+  }
 
   function saveRsvp(data) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch (_) { /* storage blocked: ticket still shows */ }
@@ -443,7 +522,14 @@
       });
     }
 
+    const quizModal = $("#quizModal");
+    const quizOpenBtn = $("#openQuizBtn");
+    const quizCloseBtn = $("#quizModalCloseBtn");
+    const quizBackdrop = $("#quizModalBackdrop");
 
+    if (quizOpenBtn && quizModal) quizOpenBtn.addEventListener("click", () => (quizModal.hidden = false));
+    if (quizCloseBtn && quizModal) quizCloseBtn.addEventListener("click", () => (quizModal.hidden = true));
+    if (quizBackdrop && quizModal) quizBackdrop.addEventListener("click", () => (quizModal.hidden = true));
 
     const downloadBtn = $("#downloadPassBtn");
     if (downloadBtn) {
@@ -1116,6 +1202,7 @@
     initNavLinks();
     initMobileNav();
     initMobilePassBar();
+    initQuiz();
     initPasses();
     initSoundToggle();
     initTabTitle();
